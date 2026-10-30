@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول | MEDO</title>
+
+```
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #0f172a, #2563eb);
+        font-family: Arial, sans-serif;
+        padding: 20px;
+    }
+
+    .login-box {
+        background: white;
+        width: 100%;
+        max-width: 380px;
+        padding: 30px;
+        border-radius: 18px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .login-box h1 {
+        color: #2563eb;
+        font-size: 35px;
+        margin-bottom: 10px;
+    }
+
+    .login-box h2 {
+        color: #222;
+        margin-bottom: 25px;
+    }
+
+    .login-box input {
+        width: 100%;
+        padding: 13px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        outline: none;
+    }
+
+    .login-box input:focus {
+        border-color: #2563eb;
+    }
+
+    .login-box button {
+        width: 100%;
+        padding: 13px;
+        margin-top: 15px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 17px;
+    }
+
+    .login-box button:hover {
+        background: #1d4ed8;
+    }
+
+    #message {
+        margin-top: 15px;
+        font-size: 14px;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 15px;
+        color: #2563eb;
+        text-decoration: none;
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<div class="login-box">
+
+    <h1>MEDO</h1>
+
+    <h2>تسجيل الدخول 🔐</h2>
+
+    <input
+        type="text"
+        id="username"
+        placeholder="اسم المستخدم"
+    >
+
+    <input
+        type="password"
+        id="password"
+        placeholder="كلمة المرور"
+    >
+
+    <button onclick="login()">دخول</button>
+
+    <p id="message"></p>
+
+    <a href="index.html" class="back-link">العودة للموقع الرئيسي</a>
+
+</div>
+
+<script>
+    function login() {
+
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const message = document.getElementById("message");
+
+        if (username === "medo" && password === "1234") {
+
+            message.style.color = "green";
+            message.textContent = "أهلاً بيك! جاري الدخول...";
+
+            setTimeout(function() {
+                window.location.href = "index.html";
+            }, 1000);
+
+        } else {
+
+            message.style.color = "red";
+            message.textContent = "اسم المستخدم أو كلمة المرور غلط!";
+
+        }
+    }
+</script>
+```
+
+</body>
+</html>
