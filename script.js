@@ -440,3 +440,14 @@ function sortTasks() {
 
 // تشغيل تحميل المهام
 loadTasks();
+const backToTop = document.getElementById("backToTop");
+
+backToTop.style.display = "none";
+
+window.addEventListener("scroll", function () {
+    if (window.scrollY > 300) {
+        backToTop.style.display = "block";
+    } else {
+        backToTop.style.display = "none";
+    }
+});

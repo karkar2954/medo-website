@@ -341,3 +341,71 @@ body.light .skills span {
     border: 4px solid #2563eb;
     box-shadow: 0 0 20px #2563eb;
 }
+/* تنسيق قسم المشاريع */
+#projects {
+    text-align: center;
+    margin: 40px auto;
+}
+
+.project-card {
+    background: white;
+    color: #222;
+    padding: 25px;
+    margin: 20px auto;
+    max-width: 500px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.project-card a {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.project-card a:hover {
+    background: #1d4ed8;
+}
+/* حركات ناعمة للموقع */
+section, .project-card, .card {
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* حركة الأزرار */
+button, .project-card a {
+    transition: 0.3s ease;
+}
+
+button:hover, .project-card a:hover {
+    transform: scale(1.05);
+}
+#backToTop {
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
