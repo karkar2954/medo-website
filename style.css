@@ -1,0 +1,287 @@
+body {
+    background-color: #111827;
+    color: white;
+    font-family: Arial;
+    text-align: center;
+    padding: 50px;
+}
+
+.card {
+    background-color: #1e3a8a;
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 500px;
+    margin: 50px auto;
+    box-shadow: 0 0 20px #000;
+    animation: fadeIn 1.5s ease;
+}
+
+h1 {
+    color: #38bdf8;
+    font-size: 40px;
+}
+
+h2 {
+    color: #facc15;
+}
+
+p {
+    font-size: 20px;
+    line-height: 1.8;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1f2937;
+    padding: 15px 25px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.navbar h2 {
+    color: #38bdf8;
+}
+
+.nav-links a,
+.nav-links a:visited {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.nav-links a:hover {
+    color: #38bdf8;
+}
+
+#themeBtn {
+    background-color: #38bdf8;
+    color: #111827;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.whatsapp {
+    display: inline-block;
+    background-color: #25D366;
+    color: white;
+    text-decoration: none;
+    padding: 12px 30px;
+    border-radius: 10px;
+}
+
+.about,
+.goals,
+.projects {
+    background-color: #374151;
+    padding: 25px;
+    border-radius: 15px;
+    margin: 30px 0;
+}
+
+.project-card {
+    background-color: #1f2937;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 15px;
+}
+
+.skills {
+    margin-top: 35px;
+}
+
+.skills span {
+    display: inline-block;
+    background-color: #374151;
+    color: #38bdf8;
+    padding: 10px 18px;
+    margin: 8px;
+    border-radius: 20px;
+}
+
+/* الساعة والتاريخ */
+.clock {
+    background-color: #374151;
+    padding: 25px;
+    border-radius: 15px;
+    margin: 30px 0;
+}
+
+#time {
+    font-size: 35px;
+    color: #38bdf8;
+    font-weight: bold;
+}
+
+#date {
+    font-size: 20px;
+    color: white;
+}
+
+/* عدد الزيارات */
+.visits {
+    background-color: #374151;
+    padding: 25px;
+    border-radius: 15px;
+    margin: 30px 0;
+}
+
+/* رسالة الترحيب */
+#greeting {
+    font-size: 28px;
+    color: #facc15;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+/* قائمة المهام */
+.todo {
+    background: #374151;
+    padding: 25px;
+    border-radius: 20px;
+    margin: 30px 0;
+}
+
+#taskInput {
+    width: 70%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+}
+
+.todo button {
+    background: #38bdf8;
+    color: #111827;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#taskList li {
+    background: #1f2937;
+    padding: 15px;
+    margin: 12px 0;
+    border-radius: 12px;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+#taskList li.completed {
+    text-decoration: line-through;
+    color: #9ca3af;
+    opacity: 0.6;
+}
+
+.card:hover,
+.about:hover,
+.goals:hover,
+.clock:hover {
+    transform: translateY(-5px);
+    transition: 0.3s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+#searchTask,
+#taskFilter {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+}
+
+#searchTask:focus,
+#taskFilter:focus {
+    border-color: #00c853;
+}
+/* الوضع النهاري */
+body.light {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+
+body.light .card,
+body.light .navbar {
+    background-color: white;
+    color: #111827;
+}
+
+body.light .nav-links a {
+    color: #111827;
+}
+
+body.light h1 {
+    color: #2563eb;
+}
+
+body.light h2 {
+    color: #1e40af;
+}
+
+body.light p {
+    color: #333;
+}
+
+body.light .skills span {
+    background-color: #dbeafe;
+}
+
+/* الهاتف */
+@media (max-width: 600px) {
+    body {
+        padding: 15px;
+    }
+
+    .card {
+        padding: 25px 15px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    p {
+        font-size: 17px;
+    }
+}
+.progress-container {
+    width: 100%;
+    height: 15px;
+    background-color: #ddd;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+#progressBar {
+    width: 0%;
+    height: 100%;
+    background-color: #00c853;
+    border-radius: 20px;
+    transition: width 0.5s ease;
+}
+
+#progressText {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 8px;
+}
