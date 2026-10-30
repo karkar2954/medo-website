@@ -12,20 +12,20 @@
 
 <body>
 
+```
 <nav class="navbar">
     <h2>Medo</h2>
 
+    <div class="nav-links">
+        <a href="#home">الرئيسية</a>
+        <a href="#skills">مهاراتي</a>
+        <a href="#projects">مشاريعي</a>
+        <a href="#gallery">معرض الألعاب</a>
+        <a href="#hobbies">هواياتي</a>
+        <a href="#contact">تواصل معايا</a>
+    </div>
 
-<div class="nav-links">
-    <a href="#home">الرئيسية</a>
-    <a href="#skills">مهاراتي</a>
-    <a href="#hobbies">هواياتي</a>
-    <a href="#contact">تواصل معايا</a>
-</div>
-
-<button id="themeBtn" onclick="changeTheme()">☀️ الوضع النهاري</button>
-
-
+    <button id="themeBtn" onclick="changeTheme()">☀️ الوضع النهاري</button>
 </nav>
 
 <div class="colors">
@@ -44,69 +44,97 @@
 
 <div class="card" id="home">
 
+    <h1 id="welcome">أهلاً بيكم، أنا Medo 👋</h1>
 
-<h1 id="welcome">أهلاً بيكم، أنا Medo 👋</h1>
-<img src="medo.png" alt="شعار Medo" class="profile-logo">
-<p id="greeting"></p>
+    <img src="medo.png" alt="شعار Medo" class="profile-logo">
 
-<button onclick="changeName()">تغيير الاسم ✏️</button>
+    <p id="greeting"></p>
 
-<h2>مطور ويب في المستقبل</h2>
+    <button onclick="changeName()">تغيير الاسم ✏️</button>
 
-<button onclick="resetName()">مسح الاسم</button>
+    <h2>مطور ويب في المستقبل</h2>
 
-<p>
-    أنا بتعلم البرمجة من الصفر،
-    وببدأ رحلتي في تصميم وتطوير المواقع.
-</p>
+    <button onclick="resetName()">مسح الاسم</button>
 
-<a id="contact"
-   href="https://wa.me/201033045299"
-   target="_blank"
-   class="whatsapp">
-    تواصل معايا على واتساب
-</a>
-
-<section class="about" id="about">
-    <h2>مين أنا؟</h2>
     <p>
-        أنا Medo، مهتم بالتكنولوجيا والبرمجة،
-        وبطوّر مهاراتي عشان أبقى مطور ويب محترف.
+        أنا بتعلم البرمجة من الصفر،
+        وببدأ رحلتي في تصميم وتطوير المواقع.
     </p>
-</section>
 
-<div class="skills" id="skills">
-    <h2>مهاراتي</h2>
-    <span>HTML</span>
-    <span>CSS</span>
-    <span>JavaScript</span>
-</div>
-<section id="projects">
-    <h2>مشاريعي 🚀</h2>
+    <a id="contact"
+       href="https://wa.me/201033045299"
+       target="_blank"
+       class="whatsapp">
+        تواصل معايا على واتساب
+    </a>
 
-    <div class="project-card">
-        <h3>موقعي الشخصي - Medo</h3>
-        <p>أول مشروع ليا في تعلم تصميم وتطوير المواقع باستخدام HTML وCSS وJavaScript.</p>
-        <a href="https://karkar2954.github.io/medo-website/" target="_blank">زيارة المشروع</a>
+    <section class="about" id="about">
+        <h2>مين أنا؟</h2>
+        <p>
+            أنا Medo، مهتم بالتكنولوجيا والبرمجة،
+            وبطوّر مهاراتي عشان أبقى مطور ويب محترف.
+        </p>
+    </section>
+
+    <div class="skills" id="skills">
+        <h2>مهاراتي</h2>
+        <span>HTML</span>
+        <span>CSS</span>
+        <span>JavaScript</span>
     </div>
-</section>
-<section class="goals" id="goals">
-    <h2>أهدافي 🚀</h2>
-    <p>هدفي أتعلم تصميم المواقع وأبقى Front-End Developer محترف.</p>
-</section>
 
-<section class="projects" id="projects">
-    <h2>أعمالي ومشاريعي 💻</h2>
+    <section id="projects">
+        <h2>مشاريعي 🚀</h2>
 
-    <div class="project-card">
-        <h3>موقعي الشخصي</h3>
-        <p>أول مشروع ليا باستخدام HTML وCSS وJavaScript.</p>
-    </div>
-</section>
+        <div class="project-card">
+            <h3>موقعي الشخصي - Medo</h3>
+            <p>
+                أول مشروع ليا في تعلم تصميم وتطوير المواقع
+                باستخدام HTML وCSS وJavaScript.
+            </p>
+            <a href="https://karkar2954.github.io/medo-website/"
+               target="_blank">
+                زيارة المشروع
+            </a>
+        </div>
+    </section>
 
-<h2 id="hobbies">هواياتي</h2>
-<p>بحب التكنولوجيا والألعاب</p>
+    <section class="goals" id="goals">
+        <h2>أهدافي 🚀</h2>
+        <p>
+            هدفي أتعلم تصميم المواقع وأبقى
+            Front-End Developer محترف.
+        </p>
+    </section>
 
+    <section id="gallery">
+        <h2>معرض الألعاب 🎮</h2>
+        <p>ألعابي المفضلة</p>
+
+        <div class="gallery-container">
+
+            <div class="gallery-item">
+                <img src="images/fc26.jpg" alt="FC 26">
+                <h3>EA SPORTS FC 26 ⚽</h3>
+            </div>
+
+            <div class="gallery-item">
+                <img src="images/rdr2.jpg" alt="Red Dead Redemption 2">
+                <h3>Red Dead Redemption 2 🤠</h3>
+            </div>
+
+            <div class="gallery-item">
+                <img src="images/ps4.jpg" alt="PlayStation 4">
+                <h3>PlayStation 4 🎮</h3>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="hobbies">
+        <h2>هواياتي</h2>
+        <p>بحب التكنولوجيا والألعاب</p>
+    </section>
 
 </div>
 
@@ -123,69 +151,73 @@
 
 <div class="todo">
 
+    <h2>قائمة مهامي 📝</h2>
 
-<h2>قائمة مهامي 📝</h2>
+    <input type="text" id="taskInput" placeholder="اكتب مهمتك هنا">
 
-<input type="text" id="taskInput" placeholder="اكتب مهمتك هنا">
+    <select id="taskPriority">
+        <option value="low">🟢 أولوية منخفضة</option>
+        <option value="medium" selected>🟡 أولوية متوسطة</option>
+        <option value="high">🔴 أولوية عالية</option>
+    </select>
 
-<select id="taskPriority">
-    <option value="low">🟢 أولوية منخفضة</option>
-    <option value="medium" selected>🟡 أولوية متوسطة</option>
-    <option value="high">🔴 أولوية عالية</option>
-</select>
+    <button onclick="addTask()">إضافة مهمة ➕</button>
 
-<button onclick="addTask()">إضافة مهمة ➕</button>
+    <input
+        type="text"
+        id="searchTask"
+        placeholder="ابحث عن مهمة 🔍"
+        oninput="searchTasks()"
+    >
 
-<input
-    type="text"
-    id="searchTask"
-    placeholder="ابحث عن مهمة 🔍"
-    oninput="searchTasks()"
->
+    <button onclick="clearSearch()">مسح البحث ✖️</button>
+    <button onclick="showAllTasks()">عرض كل المهام 📋</button>
 
-<button onclick="clearSearch()">مسح البحث ✖️</button>
-<button onclick="showAllTasks()">عرض كل المهام 📋</button>
+    <select id="taskFilter" onchange="applyTaskFilters()">
+        <option value="all">كل المهام</option>
+        <option value="completed">المهام المكتملة</option>
+        <option value="uncompleted">المهام غير المكتملة</option>
+    </select>
 
-<select id="taskFilter" onchange="applyTaskFilters()">
-    <option value="all">كل المهام</option>
-    <option value="completed">المهام المكتملة</option>
-    <option value="uncompleted">المهام غير المكتملة</option>
-</select>
+    <select id="taskSort" onchange="sortTasks()">
+        <option value="newest">الأحدث أولاً</option>
+        <option value="oldest">الأقدم أولاً</option>
+    </select>
 
-<select id="taskSort" onchange="sortTasks()">
-    <option value="newest">الأحدث أولاً</option>
-    <option value="oldest">الأقدم أولاً</option>
-</select>
+    <select id="priorityFilter" onchange="applyTaskFilters()">
+        <option value="all">كل الأولويات</option>
+        <option value="high">🔴 أولوية عالية</option>
+        <option value="medium">🟡 أولوية متوسطة</option>
+        <option value="low">🟢 أولوية منخفضة</option>
+    </select>
 
-<select id="priorityFilter" onchange="applyTaskFilters()">
-    <option value="all">كل الأولويات</option>
-    <option value="high">🔴 أولوية عالية</option>
-    <option value="medium">🟡 أولوية متوسطة</option>
-    <option value="low">🟢 أولوية منخفضة</option>
-</select>
+    <ul id="taskList"></ul>
 
-<ul id="taskList"></ul>
+    <button onclick="clearTasks()">مسح كل المهام 🗑️</button>
 
-<button onclick="clearTasks()">مسح كل المهام 🗑️</button>
+    <button onclick="clearCompletedTasks()">مسح المهام المكتملة 🗑️</button>
 
-<button onclick="clearCompletedTasks()">مسح المهام المكتملة 🗑️</button>
+    <div class="task-stats">
+        <p>إجمالي المهام: <span id="totalTasks">0</span></p>
+        <p>المهام المكتملة: <span id="completedTasks">0</span></p>
+        <p>المهام المتبقية: <span id="remainingTasks">0</span></p>
+    </div>
 
-<div class="task-stats">
-    <p>إجمالي المهام: <span id="totalTasks">0</span></p>
-    <p>المهام المكتملة: <span id="completedTasks">0</span></p>
-    <p>المهام المتبقية: <span id="remainingTasks">0</span></p>
-</div>
+    <div class="progress-container">
+        <div id="progressBar"></div>
+    </div>
 
-<div class="progress-container">
-    <div id="progressBar"></div>
-</div>
-
-<p id="progressText">نسبة الإنجاز: 0%</p>
-
+    <p id="progressText">نسبة الإنجاز: 0%</p>
 
 </div>
 
 <script src="script.js"></script>
-<button id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️</button>
+
+<button id="backToTop"
+        onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+    ⬆️
+</button>
+```
+
 </body>
 </html>
