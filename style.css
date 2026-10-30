@@ -285,3 +285,49 @@ body.light .skills span {
     font-weight: bold;
     margin-top: 8px;
 }
+/* تحسين شكل الموقع على الموبايل */
+@media (max-width: 600px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .card,
+    .todo,
+    .clock,
+    .visits {
+        width: 100%;
+        box-sizing: border-box;
+        margin: 15px 0;
+    }
+
+    input,
+    select,
+    button {
+        max-width: 100%;
+        box-sizing: border-box;
+        margin: 5px 0;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    h2 {
+        font-size: 21px;
+    }
+
+}
