@@ -331,3 +331,13 @@ body.light .skills span {
     }
 
 }
+.profile-logo {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    margin: 20px auto;
+    border: 4px solid #2563eb;
+    box-shadow: 0 0 20px #2563eb;
+}
