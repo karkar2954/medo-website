@@ -1,0 +1,18 @@
+
+#medo-tools{max-width:1000px;margin:35px auto;padding:22px;text-align:right;color:inherit}
+#medo-tools h2{margin-bottom:18px}
+.medo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.medo-box{background:rgba(128,128,128,.12);border:1px solid rgba(128,128,128,.25);border-radius:14px;padding:18px;min-width:0}
+.medo-box h3{margin-top:0}
+.medo-box button{cursor:pointer;padding:9px 13px;margin:4px;border:0;border-radius:8px;background:var(--main-color,#2563eb);color:white}
+.focus-clock{font-size:42px;font-weight:bold;text-align:center;margin:15px}
+.medo-actions,.calendar-head{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap}
+.medo-bar{height:12px;background:rgba(128,128,128,.25);border-radius:20px;overflow:hidden}
+.medo-bar span{display:block;width:0;height:100%;background:#22c55e;transition:width .25s}
+.calendar-head{justify-content:space-between;margin:10px 0}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;text-align:center}
+.calendar-grid>*{min-width:0;padding:7px 2px;border-radius:7px}
+.calendar-grid button{margin:0;background:rgba(128,128,128,.15);color:inherit}
+.calendar-grid button.has-due{outline:2px solid #22c55e}
+#assistant-result,#calendar-detail{margin-top:12px;line-height:1.7}
+body.light-mode .medo-box{background:#fff;border-color:#ddd;color:#222}

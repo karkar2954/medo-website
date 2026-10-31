@@ -217,6 +217,7 @@ document.getElementById('date').textContent =
 
 let tasks = [];
 let visibleTasks = [];
+window.getMedoTasks = () => tasks.map(task => ({ ...task }));
 
 async function loadTasks() {
 const { data, error } = await supabase
