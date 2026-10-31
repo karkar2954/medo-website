@@ -387,7 +387,7 @@ visibleTasks.forEach(task => {
     deleteButton.textContent = 'حذف 🗑️';
     deleteButton.onclick = () => deleteTask(task.id);
 
-    li.append(title, priority, completeButton, edtton, deleteButton);
+    li.append(title, priority, completeButton, editButton, deleteButton);
     list.appendChild(li);
 });
 
