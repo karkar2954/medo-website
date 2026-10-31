@@ -577,6 +577,12 @@ async function loadProfileSection() {
 
     document.getElementById("profileDate").textContent =
         new Date(data.user.created_at).toLocaleDateString("ar-EG");
+        // تحميل الصورة الشخصية المحفوظة
+const avatarUrl = data.user.user_metadata?.avatar_url;
+
+if (avatarUrl) {
+    document.getElementById("profileAvatar").src = avatarUrl;
+}
 }
 
 
@@ -605,3 +611,65 @@ window.editProfileName = editProfileName;
 
 // تحميل البيانات
 loadProfileSection();
+// رفع الصورة الشخصية وحفظها
+async function uploadAvatar() {
+    const input = document.getElementById("avatarInput");
+    const file = input.files[0];
+
+    if (!file) {
+        alert("اختار صورة الأول.");
+        return;
+    }
+
+    if (!file.type.startsWith("image/")) {
+        alert("اختار ملف صورة صالح.");
+        return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+        alert("حجم الصورة لازم يكون أقل من 5 ميجابايت.");
+        return;
+    }
+
+    const { data: { user }, error: userError } =
+        await supabase.auth.getUser();
+
+    if (userError || !user) {
+        alert("سجّل الدخول الأول.");
+        return;
+    }
+
+    const filePath = `${user.id}/${Date.now()}-${file.name}`;
+
+    const { error: uploadError } = await supabase.storage
+        .from("avatars")
+        .upload(filePath, file);
+
+    if (uploadError) {
+        console.error(uploadError);
+        alert("حصل خطأ أثناء رفع الصورة.");
+        return;
+    }
+
+    const { data: urlData } = supabase.storage
+        .from("avatars")
+        .getPublicUrl(filePath);
+
+    const imageUrl = urlData.publicUrl;
+
+    const { error: updateError } = await supabase.auth.updateUser({
+        data: { avatar_url: imageUrl }
+    });
+
+    if (updateError) {
+        console.error(updateError);
+        alert("الصورة اترفعت لكن حصل خطأ في حفظ رابطها.");
+        return;
+    }
+
+    document.getElementById("profileAvatar").src = imageUrl;
+
+    alert("تم تغيير الصورة الشخصية بنجاح! 🎉");
+}
+
+window.uploadAvatar = uploadAvatar;

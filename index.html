@@ -1,263 +1,441 @@
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Medo | موقعي الشخصي</title>
+
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="logo.png">
 </head>
 
 <body>
 
-<nav class="navbar">
-    <h2>Medo</h2>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <h2>Medo</h2>
 
-```
-<div class="nav-links">
-    <a href="#home">الرئيسية</a>
-    <a href="#skills">مهاراتي</a>
-    <a href="#projects">مشاريعي</a>
-    <a href="#gallery">معرض الألعاب</a>
-    <a href="#hobbies">هواياتي</a>
-    <a href="#contact">تواصل معايا</a>
-    <a href="login.html">🔐 تسجيل الدخول</a>
-</div>
+        <div class="nav-links">
+            <a href="#home">الرئيسية</a>
+            <a href="#skills">مهاراتي</a>
+            <a href="#projects">مشاريعي</a>
+            <a href="#gallery">معرض الألعاب</a>
+            <a href="#hobbies">هواياتي</a>
+            <a href="#profile">ملفي الشخصي</a>
+            <a href="#contact">تواصل معايا</a>
+            <a href="login.html">🔐 تسجيل الدخول</a>
+        </div>
 
-<button id="themeBtn" onclick="changeTheme()">☀️ الوضع النهاري</button>
-```
+        <button id="themeBtn" onclick="changeTheme()">
+            ☀️ الوضع النهاري
+        </button>
+    </nav>
 
-</nav>
+    <!-- أزرار الحساب -->
+    <button id="logoutBtn" onclick="logout()" style="display:none;">
+        تسجيل الخروج 🚪
+    </button>
 
-<button id="logoutBtn" onclick="logout()" style="display:none;">
-    تسجيل الخروج 🚪
-</button>
+    <button id="deleteAccountBtn"
+        onclick="deleteAccount()"
+        style="background:red; color:white;">
+        حذف الحساب 🗑️
+    </button>
 
-<button id="deleteAccountBtn" onclick="deleteAccount()" style="background:red; color:white;">
-    حذف الحساب 🗑️
-</button>
-<section class="profile-section" id="profile">
-    <h2>👤 ملفي الشخصي</h2>
+    <!-- الملف الشخصي -->
+    <section class="profile-section" id="profile">
 
-```
-<img
-    src="medo.png"
-    id="profileAvatar"
-    class="profile-avatar"
-    alt="الصورة الشخصية"
->
+        <h2>👤 ملفي الشخصي</h2>
 
-<div class="profile-info">
-    <p>اسم المستخدم: <span id="profileName">جاري التحميل...</span></p>
-</div>
+        <img
+            src="medo.png"
+            id="profileAvatar"
+            class="profile-avatar"
+            alt="الصورة الشخصية"
+        >
 
-<div class="profile-info">
-    <p>البريد الإلكتروني: <span id="profileEmail">جاري التحميل...</span></p>
-</div>
+        <div>
+            <input
+                type="file"
+                id="avatarInput"
+                accept="image/*"
+                style="margin: 15px;"
+            >
 
-<div class="profile-info">
-    <p>تاريخ إنشاء الحساب: <span id="profileDate">جاري التحميل...</span></p>
-</div>
+            <button onclick="uploadAvatar()">
+                رفع الصورة الشخصية 📷
+            </button>
+        </div>
 
-<button onclick="editProfileName()">تعديل الاسم ✏️</button>
-```
+        <div class="profile-info">
+            <p>
+                اسم المستخدم:
+                <span id="profileName">جاري التحميل...</span>
+            </p>
+        </div>
 
-</section>
+        <div class="profile-info">
+            <p>
+                البريد الإلكتروني:
+                <span id="profileEmail">جاري التحميل...</span>
+            </p>
+        </div>
 
-<div class="colors">
-    <button onclick="changeColor('#2563eb')">أزرق 🔵</button>
-    <button onclick="changeColor('#16a34a')">أخضر 🟢</button>
-    <button onclick="changeColor('#9333ea')">بنفسجي 🟣</button>
-</div>
+        <div class="profile-info">
+            <p>
+                تاريخ إنشاء الحساب:
+                <span id="profileDate">جاري التحميل...</span>
+            </p>
+        </div>
 
-<div class="backgrounds">
-    <button onclick="changeBackground('#111827')">داكن 🌑</button>
-    <button onclick="changeBackground('#1e3a8a')">أزرق 🌊</button>
-    <button onclick="changeBackground('#064e3b')">أخضر 🌿</button>
-</div>
+        <button onclick="editProfileName()">
+            تعديل الاسم ✏️
+        </button>
 
-<button onclick="resetSettings()">إعادة ضبط الإعدادات 🔄</button>
+    </section>
 
-<div class="card" id="home">
+    <!-- تغيير الألوان -->
+    <div class="colors">
 
-```
-<h1 id="welcome">أهلاً بيكم، أنا Medo 👋</h1>
+        <button onclick="changeColor('#2563eb')">
+            أزرق 🔵
+        </button>
 
-<img src="medo.png" alt="شعار Medo" class="profile-logo">
+        <button onclick="changeColor('#16a34a')">
+            أخضر 🟢
+        </button>
 
-<p id="greeting"></p>
+        <button onclick="changeColor('#9333ea')">
+            بنفسجي 🟣
+        </button>
 
-<button onclick="changeName()">تغيير الاسم ✏️</button>
+    </div>
 
-<h2>مطور ويب في المستقبل</h2>
+    <!-- تغيير الخلفية -->
+    <div class="backgrounds">
 
-<button onclick="resetName()">مسح الاسم</button>
+        <button onclick="changeBackground('#111827')">
+            داكن 🌑
+        </button>
 
-<p>
-    أنا بتعلم البرمجة من الصفر،
-    وببدأ رحلتي في تصميم وتطوير المواقع.
-</p>
+        <button onclick="changeBackground('#1e3a8a')">
+            أزرق 🌊
+        </button>
 
-<a id="contact"
-   href="https://wa.me/201033045299"
-   target="_blank"
-   class="whatsapp">
-    تواصل معايا على واتساب
-</a>
+        <button onclick="changeBackground('#064e3b')">
+            أخضر 🌿
+        </button>
 
-<section class="about" id="about">
-    <h2>مين أنا؟</h2>
-    <p>
-        أنا Medo، مهتم بالتكنولوجيا والبرمجة،
-        وبطوّر مهاراتي عشان أبقى مطور ويب محترف.
-    </p>
-</section>
+    </div>
 
-<div class="skills" id="skills">
-    <h2>مهاراتي</h2>
-    <span>HTML</span>
-    <span>CSS</span>
-    <span>JavaScript</span>
-</div>
+    <button onclick="resetSettings()">
+        إعادة ضبط الإعدادات 🔄
+    </button>
 
-<section id="projects">
-    <h2>مشاريعي 🚀</h2>
+    <!-- الرئيسية -->
+    <div class="card" id="home">
 
-    <div class="project-card">
-        <h3>موقعي الشخصي - Medo</h3>
+        <h1 id="welcome">أهلاً بيكم، أنا Medo 👋</h1>
+
+        <img
+            src="medo.png"
+            alt="شعار Medo"
+            class="profile-logo"
+        >
+
+        <p id="greeting"></p>
+
+        <button onclick="changeName()">
+            تغيير الاسم ✏️
+        </button>
+
+        <h2>مطور ويب في المستقبل</h2>
+
+        <button onclick="resetName()">
+            مسح الاسم
+        </button>
+
         <p>
-            أول مشروع ليا في تعلم تصميم وتطوير المواقع
-            باستخدام HTML وCSS وJavaScript.
+            أنا بتعلم البرمجة من الصفر،
+            وببدأ رحلتي في تصميم وتطوير المواقع.
         </p>
-        <a href="https://karkar2954.github.io/medo-website/"
-           target="_blank">
-            زيارة المشروع
+
+        <a
+            id="contact"
+            href="https://wa.me/201033045299"
+            target="_blank"
+            class="whatsapp"
+        >
+            تواصل معايا على واتساب
         </a>
+
+        <!-- من أنا -->
+        <section class="about" id="about">
+
+            <h2>مين أنا؟</h2>
+
+            <p>
+                أنا Medo، مهتم بالتكنولوجيا والبرمجة،
+                وبطوّر مهاراتي عشان أبقى مطور ويب محترف.
+            </p>
+
+        </section>
+
+        <!-- المهارات -->
+        <div class="skills" id="skills">
+
+            <h2>مهاراتي</h2>
+
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+
+        </div>
+
+        <!-- المشاريع -->
+        <section id="projects">
+
+            <h2>مشاريعي 🚀</h2>
+
+            <div class="project-card">
+
+                <h3>موقعي الشخصي - Medo</h3>
+
+                <p>
+                    أول مشروع ليا في تعلم تصميم وتطوير المواقع
+                    باستخدام HTML وCSS وJavaScript.
+                </p>
+
+                <a
+                    href="https://karkar2954.github.io/medo-website/"
+                    target="_blank"
+                >
+                    زيارة المشروع
+                </a>
+
+            </div>
+
+        </section>
+
+        <!-- الأهداف -->
+        <section class="goals" id="goals">
+
+            <h2>أهدافي 🚀</h2>
+
+            <p>
+                هدفي أتعلم تصميم المواقع وأبقى
+                Front-End Developer محترف.
+            </p>
+
+        </section>
+
+        <!-- معرض الألعاب -->
+        <section id="gallery">
+
+            <h2>معرض الألعاب 🎮</h2>
+
+            <p>ألعابي المفضلة</p>
+
+            <div class="gallery-container">
+
+                <div class="gallery-item">
+
+                    <img src="images/fc26.jpg" alt="FC 26">
+
+                    <h3>EA SPORTS FC 26 ⚽</h3>
+
+                </div>
+
+                <div class="gallery-item">
+
+                    <img
+                        src="images/rdr2.jpg"
+                        alt="Red Dead Redemption 2"
+                    >
+
+                    <h3>Red Dead Redemption 2 🤠</h3>
+
+                </div>
+
+                <div class="gallery-item">
+
+                    <img src="images/ps4.jpg" alt="PlayStation 4">
+
+                    <h3>PlayStation 4 🎮</h3>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- الهوايات -->
+        <section id="hobbies">
+
+            <h2>هواياتي</h2>
+
+            <p>بحب التكنولوجيا والألعاب</p>
+
+        </section>
+
     </div>
-</section>
 
-<section class="goals" id="goals">
-    <h2>أهدافي 🚀</h2>
-    <p>
-        هدفي أتعلم تصميم المواقع وأبقى
-        Front-End Developer محترف.
-    </p>
-</section>
+    <!-- عدد الزيارات -->
+    <div class="visits">
 
-<section id="gallery">
-    <h2>معرض الألعاب 🎮</h2>
-    <p>ألعابي المفضلة</p>
+        <h2>عدد زيارات الموقع 👀</h2>
 
-    <div class="gallery-container">
-
-        <div class="gallery-item">
-            <img src="images/fc26.jpg" alt="FC 26">
-            <h3>EA SPORTS FC 26 ⚽</h3>
-        </div>
-
-        <div class="gallery-item">
-            <img src="images/rdr2.jpg" alt="Red Dead Redemption 2">
-            <h3>Red Dead Redemption 2 🤠</h3>
-        </div>
-
-        <div class="gallery-item">
-            <img src="images/ps4.jpg" alt="PlayStation 4">
-            <h3>PlayStation 4 🎮</h3>
-        </div>
+        <p>
+            عدد مرات فتح الموقع:
+            <span id="visitCount">0</span>
+        </p>
 
     </div>
-</section>
 
-<section id="hobbies">
-    <h2>هواياتي</h2>
-    <p>بحب التكنولوجيا والألعاب</p>
-</section>
-```
+    <!-- الساعة والتاريخ -->
+    <div class="clock">
 
-</div>
+        <h2>الساعة والتاريخ ⏰</h2>
 
-<div class="visits">
-    <h2>عدد زيارات الموقع 👀</h2>
-    <p>عدد مرات فتح الموقع: <span id="visitCount">0</span></p>
-</div>
+        <p id="time"></p>
+        <p id="date"></p>
 
-<div class="clock">
-    <h2>الساعة والتاريخ ⏰</h2>
-    <p id="time"></p>
-    <p id="date"></p>
-</div>
+    </div>
 
-<div class="todo">
+    <!-- قائمة المهام -->
+    <div class="todo">
 
-```
-<h2>قائمة مهامي 📝</h2>
+        <h2>قائمة مهامي 📝</h2>
 
-<input type="text" id="taskInput" placeholder="اكتب مهمتك هنا">
+        <input
+            type="text"
+            id="taskInput"
+            placeholder="اكتب مهمتك هنا"
+        >
 
-<select id="taskPriority">
-    <option value="low">🟢 أولوية منخفضة</option>
-    <option value="medium" selected>🟡 أولوية متوسطة</option>
-    <option value="high">🔴 أولوية عالية</option>
-</select>
+        <select id="taskPriority">
 
-<button onclick="addTask()">إضافة مهمة ➕</button>
+            <option value="low">🟢 أولوية منخفضة</option>
 
-<input
-    type="text"
-    id="searchTask"
-    placeholder="ابحث عن مهمة 🔍"
-    oninput="searchTasks()"
->
+            <option value="medium" selected>
+                🟡 أولوية متوسطة
+            </option>
 
-<button onclick="clearSearch()">مسح البحث ✖️</button>
-<button onclick="showAllTasks()">عرض كل المهام 📋</button>
+            <option value="high">🔴 أولوية عالية</option>
 
-<select id="taskFilter" onchange="applyTaskFilters()">
-    <option value="all">كل المهام</option>
-    <option value="completed">المهام المكتملة</option>
-    <option value="uncompleted">المهام غير المكتملة</option>
-</select>
+        </select>
 
-<select id="taskSort" onchange="sortTasks()">
-    <option value="newest">الأحدث أولاً</option>
-    <option value="oldest">الأقدم أولاً</option>
-</select>
+        <button onclick="addTask()">
+            إضافة مهمة ➕
+        </button>
 
-<select id="priorityFilter" onchange="applyTaskFilters()">
-    <option value="all">كل الأولويات</option>
-    <option value="high">🔴 أولوية عالية</option>
-    <option value="medium">🟡 أولوية متوسطة</option>
-    <option value="low">🟢 أولوية منخفضة</option>
-</select>
+        <input
+            type="text"
+            id="searchTask"
+            placeholder="ابحث عن مهمة 🔍"
+            oninput="searchTasks()"
+        >
 
-<ul id="taskList"></ul>
+        <button onclick="clearSearch()">
+            مسح البحث ✖️
+        </button>
 
-<button onclick="clearTasks()">مسح كل المهام 🗑️</button>
+        <button onclick="showAllTasks()">
+            عرض كل المهام 📋
+        </button>
 
-<button onclick="clearCompletedTasks()">مسح المهام المكتملة 🗑️</button>
+        <select id="taskFilter" onchange="applyTaskFilters()">
 
-<div class="task-stats">
-    <p>إجمالي المهام: <span id="totalTasks">0</span></p>
-    <p>المهام المكتملة: <span id="completedTasks">0</span></p>
-    <p>المهام المتبقية: <span id="remainingTasks">0</span></p>
-</div>
+            <option value="all">كل المهام</option>
 
-<div class="progress-container">
-    <div id="progressBar"></div>
-</div>
+            <option value="completed">
+                المهام المكتملة
+            </option>
 
-<p id="progressText">نسبة الإنجاز: 0%</p>
-```
+            <option value="uncompleted">
+                المهام غير المكتملة
+            </option>
 
-</div>
+        </select>
 
-<button id="backToTop"
- onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-⬆️ </button>
+        <select id="taskSort" onchange="sortTasks()">
 
-<script type="module" src="script.js"></script>
+            <option value="newest">الأحدث أولاً</option>
+
+            <option value="oldest">الأقدم أولاً</option>
+
+        </select>
+
+        <select
+            id="priorityFilter"
+            onchange="applyTaskFilters()"
+        >
+
+            <option value="all">كل الأولويات</option>
+
+            <option value="high">🔴 أولوية عالية</option>
+
+            <option value="medium">🟡 أولوية متوسطة</option>
+
+            <option value="low">🟢 أولوية منخفضة</option>
+
+        </select>
+
+        <ul id="taskList"></ul>
+
+        <button onclick="clearTasks()">
+            مسح كل المهام 🗑️
+        </button>
+
+        <button onclick="clearCompletedTasks()">
+            مسح المهام المكتملة 🗑️
+        </button>
+
+        <!-- إحصائيات المهام -->
+        <div class="task-stats">
+
+            <p>
+                إجمالي المهام:
+                <span id="totalTasks">0</span>
+            </p>
+
+            <p>
+                المهام المكتملة:
+                <span id="completedTasks">0</span>
+            </p>
+
+            <p>
+                المهام المتبقية:
+                <span id="remainingTasks">0</span>
+            </p>
+
+        </div>
+
+        <!-- شريط التقدم -->
+        <div class="progress-container">
+
+            <div id="progressBar"></div>
+
+        </div>
+
+        <p id="progressText">
+            نسبة الإنجاز: 0%
+        </p>
+
+    </div>
+
+    <!-- العودة للأعلى -->
+    <button
+        id="backToTop"
+        onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+    >
+        ⬆️
+    </button>
+
+    <!-- ملف JavaScript -->
+    <script type="module" src="script.js"></script>
 
 </body>
 </html>
