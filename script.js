@@ -1,4 +1,4 @@
-import { createClient } from 'https://cdn.jsdelivr.net/==
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 // تسجيل الدخول
 // =========================npm/@supabase/supabase-js@2/+esm';
 
