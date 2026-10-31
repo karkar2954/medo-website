@@ -232,11 +232,19 @@ if (error) {
 }
 
 tasks = data || [];
+updateDashboard();
 applyTaskFilters();
 
 
 }
+function updateDashboard() {
+    const total = tasks.length;
+    const completed = tasks.filter(task => task.completed).length;
 
+    document.getElementById("dashTasks").textContent = total;
+    document.getElementById("dashCompleted").textContent = completed;
+    document.getElementById("dashAccount").textContent = "نشط";
+}
 async function addTask() {
 const input = document.getElementById('taskInput');
 const title = input.value.trim();
