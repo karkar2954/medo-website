@@ -44,13 +44,36 @@ async function deleteAccount() {
 
   if (!confirmed) return;
 
-  const { data, error } = await supabase.functions.invoke("delete-account");
+  const { data: sessionData, error: sessionError } =
+    await supabase.auth.getSession();
 
-  if (error || !data?.success) {
-    alert(data?.error || "حصل خطأ أثناء حذف الحساب. حاول مرة أخرى.");
+  const session = sessionData?.session;
+
+  if (sessionError || !session) {
+    alert("جلسة تسجيل الدخول غير موجودة. سجّل الدخول مرة أخرى.");
     return;
   }
 
+  const { data, error } = await supabase.functions.invoke(
+    "delete-account",
+    {
+      headers: {
+        Authorization: `Bearer ${session.access_token}`
+      }
+    }
+  );
+
+  if (error || !data?.success) {
+    console.error("Delete account error:", error, data);
+    alert(data?.error || "حصل خطأ أثناء حذف الحساب.");
+    return;
+  }
+
+  await supabase.auth.signOut();
+  alert("تم حذف حسابك بنجاح.");
+  window.location.href = "register.html";
+}
+  
   await supabase.auth.signOut();
   alert("تم حذف حسابك بنجاح.");
   window.location.href = "register.html";
