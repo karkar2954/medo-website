@@ -1,4 +1,6 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+import { createClient } from 'https://cdn.jsdelivr.net/==
+// تسجيل الدخول
+// =========================npm/@supabase/supabase-js@2/+esm';
 
 // بيانات Supabase
 const SUPABASE_URL = 'https://yfktbkqerjvhgopnoowj.supabase.co';
@@ -6,9 +8,7 @@ const SUPABASE_KEY = 'sb_publishable_DnWZ6SjWDdwZ3eNWL3MQAA_cY4CJ0mI';
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// =========================
-// تسجيل الدخول
-// =========================
+// =======================
 
 async function checkLogin() {
 const { data, error } = await supabase.auth.getSession();
@@ -139,7 +139,7 @@ function updateGreeting() {
 
 
 
-
+}
 // =========================
 // عدد الزيارات
 // =========================
