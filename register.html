@@ -108,9 +108,21 @@
             return;
         }
 
+        if (password.length < 6) {
+            message.style.color = "red";
+            message.textContent = "كلمة المرور لازم تكون 6 أحرف على الأقل";
+            return;
+        }
+
         if (password !== confirmPassword) {
             message.style.color = "red";
             message.textContent = "كلمتا المرور غير متطابقتين";
+            return;
+        }
+
+        if (localStorage.getItem("registeredUsername") !== null) {
+            message.style.color = "red";
+            message.textContent = "يوجد حساب بالفعل، احذفه أولاً لإنشاء حساب جديد";
             return;
         }
 
