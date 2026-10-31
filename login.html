@@ -71,13 +71,15 @@
         font-size: 17px;
     }
 
-    .login-box button:hover {
-        background: #1d4ed8;
+    .login-box button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
     }
 
     #message {
         margin-top: 15px;
         font-size: 14px;
+        overflow-wrap: anywhere;
     }
 
     .back-link {
@@ -93,63 +95,102 @@
 
 <body>
 
-```
 <div class="login-box">
 
-    <h1>MEDO</h1>
+```
+<h1>MEDO</h1>
 
-    <h2>تسجيل الدخول 🔐</h2>
+<h2>تسجيل الدخول 🔐</h2>
 
-    <input
-        type="text"
-        id="username"
-        placeholder="اسم المستخدم"
-    >
+<input
+    type="email"
+    id="email"
+    placeholder="البريد الإلكتروني"
+>
 
-    <input
-        type="password"
-        id="password"
-        placeholder="كلمة المرور"
-    >
+<input
+    type="password"
+    id="password"
+    placeholder="كلمة المرور"
+>
 
-    <button onclick="login()">دخول</button>
+<button id="loginBtn">دخول</button>
 
-    <p id="message"></p>
+<p id="message"></p>
 
-    <a href="index.html" class="back-link">
-        العودة للموقع الرئيسي
-    </a>
+<a href="index.html" class="back-link">
+    العودة للموقع الرئيسي
+</a>
+
+<br>
+
 <a href="register.html" class="back-link">
     إنشاء حساب جديد 📝
 </a>
+```
+
 </div>
 
-<script>
-    function login() {
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
-        const message = document.getElementById("message");
+<script type="module">
 
-        let savedUsername = localStorage.getItem("registeredUsername");
-let savedPassword = localStorage.getItem("registeredPassword");
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-if (username === savedUsername && password === savedPassword && savedUsername !== null) {
-            localStorage.setItem("isLoggedIn", "true");
+    const SUPABASE_URL = 'https://yfktbkqerjvhgopnoowj.supabase.co';
 
-            message.style.color = "green";
-            message.textContent = "أهلاً بيك! جاري الدخول...";
+    const SUPABASE_KEY = 'sb_publishable_DnWZ6SjWDdwZ3eNWL3MQAA_cY4CJ0mI';
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const button = document.getElementById('loginBtn');
+    const message = document.getElementById('message');
+
+    button.addEventListener('click', login);
+
+    async function login() {
+
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+
+        if (!email || !password) {
+            showMessage('اكتب البريد الإلكتروني وكلمة المرور', 'red');
+            return;
+        }
+
+        button.disabled = true;
+        button.textContent = 'جاري تسجيل الدخول...';
+
+        try {
+
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+
+            if (error) {
+                showMessage('خطأ: ' + error.message, 'red');
+                return;
+            }
+
+            showMessage('أهلاً بيك! جاري الدخول...', 'green');
 
             setTimeout(function() {
-                window.location.href = "index.html";
+                window.location.href = 'index.html';
             }, 1000);
 
-        } else {
-            message.style.color = "red";
-            message.textContent = "اسم المستخدم أو كلمة المرور غلط!";
+        } catch (error) {
+            showMessage('تعذر الاتصال: ' + error.message, 'red');
+        } finally {
+            button.disabled = false;
+            button.textContent = 'دخول';
         }
     }
+
+    function showMessage(text, color) {
+        message.style.color = color;
+        message.textContent = text;
+    }
+
 </script>
-```
 
 </body>
 </html>

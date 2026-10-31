@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
 <html lang="ar" dir="rtl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,8 +57,14 @@
         font-size: 17px;
     }
 
+    button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
     #message {
         margin-top: 15px;
+        overflow-wrap: anywhere;
     }
 
     a {
@@ -75,69 +80,102 @@
 
 <body>
 
-```
 <div class="register-box">
 
-    <h1>MEDO</h1>
-    <h2>إنشاء حساب جديد 📝</h2>
+```
+<h1>MEDO</h1>
+<h2>إنشاء حساب جديد 📝</h2>
 
-    <input type="text" id="newUsername" placeholder="اسم المستخدم">
+<input type="text" id="newUsername" placeholder="اسم المستخدم">
 
-    <input type="password" id="newPassword" placeholder="كلمة المرور">
+<input type="email" id="newEmail" placeholder="البريد الإلكتروني">
 
-    <input type="password" id="confirmPassword" placeholder="تأكيد كلمة المرور">
+<input type="password" id="newPassword" placeholder="كلمة المرور">
 
-    <button onclick="register()">إنشاء الحساب</button>
+<input type="password" id="confirmPassword" placeholder="تأكيد كلمة المرور">
 
-    <p id="message"></p>
+<button id="registerBtn">إنشاء الحساب</button>
 
-    <a href="login.html">عندي حساب بالفعل؟ تسجيل الدخول</a>
+<p id="message"></p>
+
+<a href="login.html">عندي حساب بالفعل؟ تسجيل الدخول</a>
+```
 
 </div>
 
-<script>
-    function register() {
-        let username = document.getElementById("newUsername").value.trim();
-        let password = document.getElementById("newPassword").value;
-        let confirmPassword = document.getElementById("confirmPassword").value;
-        let message = document.getElementById("message");
+<script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-        if (username === "" || password === "" || confirmPassword === "") {
-            message.style.color = "red";
-            message.textContent = "من فضلك املأ كل الخانات";
+    const SUPABASE_URL = 'https://yfktbkqerjvhgopnoowj.supabase.co';
+
+    const SUPABASE_KEY = 'sb_publishable_DnWZ6SjWDdwZ3eNWL3MQAA_cY4CJ0mI';
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const button = document.getElementById('registerBtn');
+    const message = document.getElementById('message');
+
+    button.addEventListener('click', register);
+
+    async function register() {
+        const username = document.getElementById('newUsername').value.trim();
+        const email = document.getElementById('newEmail').value.trim();
+        const password = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (!username || !email || !password || !confirmPassword) {
+            showMessage('من فضلك املأ كل الخانات', 'red');
             return;
         }
 
         if (password.length < 6) {
-            message.style.color = "red";
-            message.textContent = "كلمة المرور لازم تكون 6 أحرف على الأقل";
+            showMessage('كلمة المرور لازم تكون 6 أحرف على الأقل', 'red');
             return;
         }
 
         if (password !== confirmPassword) {
-            message.style.color = "red";
-            message.textContent = "كلمتا المرور غير متطابقتين";
+            showMessage('كلمتا المرور غير متطابقتين', 'red');
             return;
         }
 
-        if (localStorage.getItem("registeredUsername") !== null) {
-            message.style.color = "red";
-            message.textContent = "يوجد حساب بالفعل، احذفه أولاً لإنشاء حساب جديد";
-            return;
+        button.disabled = true;
+        button.textContent = 'جاري إنشاء الحساب...';
+
+        try {
+            const { error } = await supabase.auth.signUp({
+                email: email,
+                password: password,
+                options: {
+                    data: {
+                        username: username
+                    },
+                    emailRedirectTo: 'https://karkar2954.github.io/medo-website/'
+                }
+            });
+
+            if (error) {
+                showMessage('حدث خطأ: ' + error.message, 'red');
+                return;
+            }
+
+            showMessage(
+                'تم إنشاء الحساب! افتح بريدك الإلكتروني واضغط رابط التأكيد.',
+                'green'
+            );
+
+        } catch (error) {
+            showMessage('تعذر الاتصال: ' + error.message, 'red');
+        } finally {
+            button.disabled = false;
+            button.textContent = 'إنشاء الحساب';
         }
+    }
 
-        localStorage.setItem("registeredUsername", username);
-        localStorage.setItem("registeredPassword", password);
-
-        message.style.color = "green";
-        message.textContent = "تم إنشاء الحساب بنجاح!";
-
-        setTimeout(function() {
-            window.location.href = "login.html";
-        }, 1000);
+    function showMessage(text, color) {
+        message.style.color = color;
+        message.textContent = text;
     }
 </script>
-```
 
 </body>
 </html>
