@@ -37,9 +37,23 @@ window.location.href = 'login.html';
 
 
 }
-
 async function deleteAccount() {
-alert('حذف الحساب نهائيًا يحتاج إعدادًا آمنًا منفصلًا. لم يتم حذف حسابك.');
+  const confirmed = confirm(
+    "هل أنت متأكد؟ سيتم حذف حسابك وجميع مهامك نهائيًا ولا يمكن التراجع."
+  );
+
+  if (!confirmed) return;
+
+  const { data, error } = await supabase.functions.invoke("delete-account");
+
+  if (error || !data?.success) {
+    alert(data?.error || "حصل خطأ أثناء حذف الحساب. حاول مرة أخرى.");
+    return;
+  }
+
+  await supabase.auth.signOut();
+  alert("تم حذف حسابك بنجاح.");
+  window.location.href = "register.html";
 }
 
 // =========================
