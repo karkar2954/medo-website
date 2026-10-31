@@ -589,7 +589,7 @@ updateClock();
 setInterval(updateClock, 1000);
 
 await loadTasks();
-
+await loadAchievements();
 
 }
 
@@ -711,3 +711,48 @@ async function uploadAvatar() {
 }
 
 window.uploadAvatar = uploadAvatar;
+async function loadAchievements() {
+    const list = document.getElementById("achievementsList");
+
+    const { data: userData, error: userError } =
+        await supabase.auth.getUser();
+
+    if (userError || !userData.user) {
+        list.textContent = "سجّل الدخول لعرض إنجازاتك.";
+        return;
+    }
+
+    const { data, error } = await supabase
+        .from("user_achievements")
+        .select("*")
+        .eq("user_id", userData.user.id)
+        .order("achieved_at", { ascending: false });
+
+    if (error) {
+        console.error(error);
+        list.textContent = "تعذر تحميل الإنجازات.";
+        return;
+    }
+
+    if (!data || data.length === 0) {
+        list.textContent = "لسه مفيش إنجازات. ابدأ أكمل مهامك! 💪";
+        return;
+    }
+
+    list.innerHTML = "";
+
+    data.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "achievement-card";
+
+        const title = document.createElement("h3");
+        title.textContent = item.achievement_name;
+
+        const date = document.createElement("small");
+        date.textContent = new Date(item.achieved_at)
+            .toLocaleDateString("ar-EG");
+
+        card.append(title, date);
+        list.appendChild(card);
+    });
+}

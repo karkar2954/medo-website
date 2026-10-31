@@ -457,3 +457,39 @@ body.light .profile-section {
 body.light .profile-info {
     background: #e5e7eb;
 }
+/* تصميم الإنجازات */
+.achievements-section {
+    background: #1f2937;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 900px;
+    margin: 30px auto;
+    box-shadow: 0 0 20px #000;
+}
+
+.achievements-section h2 {
+    color: #facc15;
+}
+
+.achievement-card {
+    background: #374151;
+    padding: 18px;
+    border-radius: 15px;
+    margin: 12px 0;
+    text-align: right;
+    color: white;
+}
+
+.achievement-card span {
+    color: #facc15;
+}
+
+body.light .achievements-section {
+    background: white;
+    color: #111827;
+}
+
+body.light .achievement-card {
+    background: #e5e7eb;
+    color: #111827;
+}
