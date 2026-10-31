@@ -74,10 +74,6 @@ async function deleteAccount() {
   window.location.href = "register.html";
 }
   
-  await supabase.auth.signOut();
-  alert("تم حذف حسابك بنجاح.");
-  window.location.href = "register.html";
-}
 
 // =========================
 // المظهر والألوان
