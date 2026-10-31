@@ -13,28 +13,28 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 async function checkLogin() {
 const { data, error } = await supabase.auth.getSession();
 
-```
+
 if (error || !data.session) {
     window.location.href = 'login.html';
     return false;
 }
 
 return true;
-```
+
 
 }
 
 async function logout() {
 const { error } = await supabase.auth.signOut();
 
-```
+
 if (error) {
     alert('حصل خطأ أثناء تسجيل الخروج.');
     return;
 }
 
 window.location.href = 'login.html';
-```
+
 
 }
 
@@ -49,7 +49,7 @@ alert('حذف الحساب نهائيًا يحتاج إعدادًا آمنًا �
 function changeTheme() {
 document.body.classList.toggle('light-mode');
 
-```
+
 const button = document.getElementById('themeBtn');
 
 if (document.body.classList.contains('light-mode')) {
@@ -59,7 +59,7 @@ if (document.body.classList.contains('light-mode')) {
     button.textContent = '☀️ الوضع النهاري';
     localStorage.setItem('theme', 'dark');
 }
-```
+
 
 }
 
@@ -79,9 +79,9 @@ localStorage.removeItem('mainColor');
 localStorage.removeItem('backgroundColor');
 localStorage.removeItem('visitorName');
 
-```
+
 location.reload();
-```
+
 
 }
 
@@ -90,7 +90,7 @@ const theme = localStorage.getItem('theme');
 const color = localStorage.getItem('mainColor');
 const background = localStorage.getItem('backgroundColor');
 
-```
+
 if (theme === 'light') {
     document.body.classList.add('light-mode');
     document.getElementById('themeBtn').textContent = '🌙 الوضع الليلي';
@@ -103,7 +103,7 @@ if (color) {
 if (background) {
     document.body.style.background = background;
 }
-```
+
 
 }
 
@@ -114,12 +114,12 @@ if (background) {
 function changeName() {
 const name = prompt('اكتب اسمك:');
 
-```
+
 if (name && name.trim()) {
     localStorage.setItem('visitorName', name.trim());
     updateGreeting();
 }
-```
+
 
 }
 
@@ -136,9 +136,9 @@ function updateGreeting() {
     } else {
         greeting.textContent = "أهلاً بيك في موقعي الشخصي ❤️";
     }
-}
 
-}
+
+
 
 // =========================
 // عدد الزيارات
@@ -147,12 +147,12 @@ function updateGreeting() {
 function updateVisits() {
 let visits = Number(localStorage.getItem('visitCount') || 0);
 
-```
+
 visits++;
 localStorage.setItem('visitCount', visits);
 
 document.getElementById('visitCount').textContent = visits;
-```
+
 
 }
 
@@ -163,7 +163,7 @@ document.getElementById('visitCount').textContent = visits;
 function updateClock() {
 const now = new Date();
 
-```
+
 document.getElementById('time').textContent =
     now.toLocaleTimeString('ar-EG');
 
@@ -174,7 +174,7 @@ document.getElementById('date').textContent =
         month: 'long',
         day: 'numeric'
     });
-```
+
 
 }
 
@@ -191,7 +191,7 @@ const { data, error } = await supabase
 .select('*')
 .order('created_at', { ascending: false });
 
-```
+
 if (error) {
     console.error('خطأ تحميل المهام:', error);
     alert('تعذر تحميل المهام. تأكد من الاتصال بـ Supabase.');
@@ -200,7 +200,7 @@ if (error) {
 
 tasks = data || [];
 applyTaskFilters();
-```
+
 
 }
 
@@ -209,7 +209,7 @@ const input = document.getElementById('taskInput');
 const title = input.value.trim();
 const priority = document.getElementById('taskPriority').value;
 
-```
+
 if (!title) {
     alert('اكتب المهمة الأول.');
     return;
@@ -240,7 +240,7 @@ if (error) {
 
 input.value = '';
 await loadTasks();
-```
+
 
 }
 
@@ -250,7 +250,7 @@ const { error } = await supabase
 .update({ completed: !completed })
 .eq('id', id);
 
-```
+
 if (error) {
     alert('تعذر تحديث المهمة.');
     console.error(error);
@@ -258,14 +258,14 @@ if (error) {
 }
 
 await loadTasks();
-```
+
 
 }
 
 async function deleteTask(id) {
 if (!confirm('هل تريد حذف المهمة؟')) return;
 
-```
+
 const { error } = await supabase
     .from('tasks')
     .delete()
@@ -278,7 +278,7 @@ if (error) {
 }
 
 await loadTasks();
-```
+
 
 }
 
@@ -286,7 +286,7 @@ async function editTask(id) {
 const task = tasks.find(item => item.id === id);
 if (!task) return;
 
-```
+
 const newTitle = prompt('اكتب اسم المهمة الجديد:', task.title);
 
 if (!newTitle || !newTitle.trim()) return;
@@ -303,14 +303,14 @@ if (error) {
 }
 
 await loadTasks();
-```
+
 
 }
 
 async function clearTasks() {
 if (!confirm('هل أنت متأكد من مسح كل المهام؟')) return;
 
-```
+
 const { error } = await supabase
     .from('tasks')
     .delete()
@@ -323,14 +323,14 @@ if (error) {
 }
 
 await loadTasks();
-```
+
 
 }
 
 async function clearCompletedTasks() {
 if (!confirm('هل تريد مسح المهام المكتملة؟')) return;
 
-```
+
 const { error } = await supabase
     .from('tasks')
     .delete()
@@ -343,7 +343,7 @@ if (error) {
 }
 
 await loadTasks();
-```
+
 
 }
 
@@ -355,7 +355,7 @@ function renderTasks() {
 const list = document.getElementById('taskList');
 list.innerHTML = '';
 
-```
+
 visibleTasks.forEach(task => {
     const li = document.createElement('li');
 
@@ -392,7 +392,7 @@ visibleTasks.forEach(task => {
 });
 
 updateTaskStats();
-```
+
 
 }
 
@@ -402,14 +402,14 @@ const completed = tasks.filter(task => task.completed).length;
 const remaining = total - completed;
 const percentage = total ? Math.round((completed / total) * 100) : 0;
 
-```
+
 document.getElementById('totalTasks').textContent = total;
 document.getElementById('completedTasks').textContent = completed;
 document.getElementById('remainingTasks').textContent = remaining;
 document.getElementById('progressBar').style.width = percentage + '%';
 document.getElementById('progressText').textContent =
     `نسبة الإنجاز: ${percentage}%`;
-```
+
 
 }
 
@@ -422,7 +422,7 @@ const search = document.getElementById('searchTask').value.toLowerCase();
 const filter = document.getElementById('taskFilter').value;
 const priority = document.getElementById('priorityFilter').value;
 
-```
+
 visibleTasks = tasks.filter(task => {
     const matchesSearch = task.title.toLowerCase().includes(search);
 
@@ -438,7 +438,7 @@ visibleTasks = tasks.filter(task => {
 });
 
 sortTasks(false);
-```
+
 
 }
 
@@ -464,7 +464,7 @@ applyTaskFilters();
 return;
 }
 
-```
+
 const sort = document.getElementById('taskSort').value;
 
 visibleTasks.sort((a, b) => {
@@ -475,7 +475,7 @@ visibleTasks.sort((a, b) => {
 });
 
 renderTasks();
-```
+
 
 }
 
@@ -505,7 +505,7 @@ sortTasks
 async function startWebsite() {
 const loggedIn = await checkLogin();
 
-```
+
 if (!loggedIn) return;
 
 document.getElementById('logoutBtn').style.display = 'inline-block';
@@ -518,7 +518,7 @@ updateClock();
 setInterval(updateClock, 1000);
 
 await loadTasks();
-```
+
 
 }
 
