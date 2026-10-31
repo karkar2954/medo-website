@@ -237,7 +237,7 @@ applyTaskFilters();
 
 
 }
-function updateDashboard() {
+async function updateDashboard() {
     const total = tasks.length;
     const completed = tasks.filter(task => task.completed).length;
 
@@ -245,13 +245,29 @@ function updateDashboard() {
     document.getElementById("dashCompleted").textContent = completed;
     document.getElementById("dashAccount").textContent = "نشط";
 
-    // حساب النقاط والمستويات
-    const points = completed * 10;
+    const { data: userData, error: userError } =
+        await supabase.auth.getUser();
+
+    if (userError || !userData.user) return;
+
+    const { data, error } = await supabase
+        .from("user_points")
+        .select("points")
+        .eq("user_id", userData.user.id)
+        .maybeSingle();
+
+    if (error) {
+        console.error("خطأ تحميل النقاط:", error);
+        return;
+    }
+
+    const points = data ? data.points : 0;
     const level = Math.floor(points / 100) + 1;
     const progress = points % 100;
 
     document.getElementById("dashPoints").textContent = points;
-    document.getElementById("dashLevel").textContent = "المستوى " + level;
+    document.getElementById("dashLevel").textContent =
+        "المستوى " + level;
 
     document.getElementById("levelProgress").style.width =
         progress + "%";
