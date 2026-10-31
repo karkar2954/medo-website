@@ -328,7 +328,7 @@ async function toggleTask(id, completed) {
     }
 
     await loadTasks();
-
+await loadAchievements();
     if (!completed) {
         console.log("وصلنا لاستدعاء الإشعار");
     console.log("حالة الدالة:", typeof window.showNotification);
