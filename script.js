@@ -438,10 +438,28 @@ visibleTasks.forEach(task => {
 
     const title = document.createElement('span');
     title.textContent = task.title;
+    {
 if (task.due_date) {
     const dueDate = document.createElement('small');
-    dueDate.textContent = ' 📅 موعد التسليم: ' + task.due_date;
+    const today = new Date();
+    const todayString = [
+        today.getFullYear(),
+        String(today.getMonth() + 1).padStart(2, '0'),
+        String(today.getDate()).padStart(2, '0')
+    ].join('-');
+
+    if (task.completed) {
+        dueDate.textContent = ' 📅 موعد التسليم: ' + task.due_date;
+    } else if (task.due_date < todayString) {
+        dueDate.textContent = ' 🔴 متأخرة';
+    } else if (task.due_date === todayString) {
+        dueDate.textContent = ' 🟠 موعدها النهارده';
+    } else {
+        dueDate.textContent = ' 🟢 موعد التسليم: ' + task.due_date;
+    }
+
     li.appendChild(dueDate);
+}
 }
     if (task.completed) {
         title.style.textDecoration = 'line-through';
