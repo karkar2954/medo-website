@@ -1,3 +1,7 @@
+// منع فتح الموقع بدون تسجيل الدخول
+if (localStorage.getItem("isLoggedIn") !== "true") {
+    window.location.href = "login.html";
+}
 // رسالة ترحيب
 function sayHello() {
     alert("أهلاً بيك في موقعي الشخصي ❤️");
@@ -450,4 +454,29 @@ window.addEventListener("scroll", function () {
     } else {
         backToTop.style.display = "none";
     }
-});
+});// إظهار زر تسجيل الخروج عند تسجيل الدخول
+const logoutBtn = document.getElementById("logoutBtn");
+
+if (localStorage.getItem("isLoggedIn") === "true" && logoutBtn) {
+    logoutBtn.style.display = "inline-block";
+}
+
+// تسجيل الخروج
+function logout() {
+    localStorage.removeItem("isLoggedIn");
+    window.location.href = "login.html";
+}
+// حذف الحساب
+function deleteAccount() {
+    let confirmDelete = confirm("هل أنت متأكد من حذف حسابك نهائيًا؟");
+
+    if (confirmDelete) {
+        localStorage.removeItem("registeredUsername");
+        localStorage.removeItem("registeredPassword");
+        localStorage.removeItem("isLoggedIn");
+
+        alert("تم حذف الحساب بنجاح 🗑️");
+
+        window.location.href = "register.html";
+    }
+}

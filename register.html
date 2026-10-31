@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء حساب | MEDO</title>
+
+```
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #0f172a, #2563eb);
+        font-family: Arial, sans-serif;
+        padding: 20px;
+    }
+
+    .register-box {
+        background: white;
+        width: 100%;
+        max-width: 380px;
+        padding: 30px;
+        border-radius: 18px;
+        text-align: center;
+    }
+
+    h1 {
+        color: #2563eb;
+    }
+
+    input {
+        width: 100%;
+        padding: 13px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+
+    button {
+        width: 100%;
+        padding: 13px;
+        margin-top: 15px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 17px;
+    }
+
+    #message {
+        margin-top: 15px;
+    }
+
+    a {
+        display: inline-block;
+        margin-top: 15px;
+        color: #2563eb;
+        text-decoration: none;
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<div class="register-box">
+
+    <h1>MEDO</h1>
+    <h2>إنشاء حساب جديد 📝</h2>
+
+    <input type="text" id="newUsername" placeholder="اسم المستخدم">
+
+    <input type="password" id="newPassword" placeholder="كلمة المرور">
+
+    <input type="password" id="confirmPassword" placeholder="تأكيد كلمة المرور">
+
+    <button onclick="register()">إنشاء الحساب</button>
+
+    <p id="message"></p>
+
+    <a href="login.html">عندي حساب بالفعل؟ تسجيل الدخول</a>
+
+</div>
+
+<script>
+    function register() {
+        let username = document.getElementById("newUsername").value.trim();
+        let password = document.getElementById("newPassword").value;
+        let confirmPassword = document.getElementById("confirmPassword").value;
+        let message = document.getElementById("message");
+
+        if (username === "" || password === "" || confirmPassword === "") {
+            message.style.color = "red";
+            message.textContent = "من فضلك املأ كل الخانات";
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            message.style.color = "red";
+            message.textContent = "كلمتا المرور غير متطابقتين";
+            return;
+        }
+
+        localStorage.setItem("registeredUsername", username);
+        localStorage.setItem("registeredPassword", password);
+
+        message.style.color = "green";
+        message.textContent = "تم إنشاء الحساب بنجاح!";
+
+        setTimeout(function() {
+            window.location.href = "login.html";
+        }, 1000);
+    }
+</script>
+```
+
+</body>
+</html>
