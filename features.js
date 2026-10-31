@@ -62,9 +62,14 @@ function updateStats(){
  $('stats-summary').textContent=`${done} من ${total} مهمة مكتملة (${pct}٪)`;
  $('stats-bar').style.width=pct+'%';
  $('stats-detail').textContent=`متبقي ${total-done} مهمة`;
- const key='medo-challenge-'+todayISO(), goal=3;
- $('daily-challenge').textContent=`أكمل ${goal} مهام النهارده واكسب تحدي اليوم.`;
- $('daily-progress').textContent=`تقدمك اليوم: ${Math.min(done,goal)} / ${goal}`;
+ const key='medo-challenge-'+todayISO(), count=Number(localStorage.getItem(key)||0);
+ const goal=3, reward=count>=goal?'🏅 حصلت على شارة بطل اليوم!':'🎯 أكمل 3 مهام النهارده وافتح شارة بطل اليوم.';
+ $('daily-challenge').textContent=reward;
+ $('daily-progress').textContent=`إنجازاتك المسجلة النهارده: ${Math.min(count,goal)} / ${goal}`;
+ const badges=JSON.parse(localStorage.getItem('medo-daily-badges')||'{}');
+ if(count>=1) badges.first=true;
+ if(count>=goal) badges.dailyChampion=true;
+ localStorage.setItem('medo-daily-badges',JSON.stringify(badges));
 }
 let calDate=new Date(); calDate.setDate(1);
 function renderCalendar(){
@@ -91,8 +96,39 @@ $('assistant-run').onclick=()=>{
   const score=x=>(x.due_date&&x.due_date<today?100:0)+(x.priority==='high'?30:x.priority==='medium'?20:10)+(x.due_date?Math.max(0,20-Math.max(0,(new Date(x.due_date)-new Date(today))/(86400000))):0);
   return score(b)-score(a);
  });
- $('assistant-result').textContent=t.length?`ابدأ بالمهمة: ${t[0].title}${t[0].due_date?' — موعدها '+t[0].due_date:''}.`:'مفيش مهام مفتوحة حاليًا. أضف مهمة جديدة أو استمتع بوقتك!';
+ if(!t.length){$('assistant-result').textContent='مفيش مهام مفتوحة حاليًا. أضف مهمة جديدة أو استمتع بوقتك!';return;}
+ const first=t[0], today=todayISO();
+ const why=first.due_date&&first.due_date<today?'لأن موعدها فات':first.priority==='high'?'لأن أولويتها عالية':first.due_date===today?'لأن موعدها النهارده':'لأنها الأعلى أولوية بين مهامك';
+ $('assistant-result').innerHTML='';
+ const lead=document.createElement('p');lead.textContent=`ابدأ بـ «${first.title}» — ${why}.`; $('assistant-result').append(lead);
+ const list=document.createElement('ol');
+ t.slice(0,3).forEach(task=>{const li=document.createElement('li');li.textContent=task.title+(task.due_date?' — '+task.due_date:'');list.append(li);});
+ $('assistant-result').append(list);
 };
 const observer=new MutationObserver(()=>{updateStats();renderCalendar();});
 const taskList=$('taskList');if(taskList)observer.observe(taskList,{childList:true,subtree:true});
 setTimeout(()=>{updateStats();renderCalendar();},500);
+
+
+// Track newly completed tasks for the daily challenge on this browser.
+function installDailyChallengeTracker(){
+ if(typeof window.toggleTask!=='function' || window.toggleTask.__medoTracked) return false;
+ const original=window.toggleTask;
+ const wrapped=function(id, completed, ...rest){
+   if(completed===true){
+     const key='medo-challenge-'+todayISO();
+     const n=Number(localStorage.getItem(key)||0);
+     localStorage.setItem(key,String(n+1));
+     updateStats();
+   }
+   return original.call(this,id,completed,...rest);
+ };
+ wrapped.__medoTracked=true;
+ window.toggleTask=wrapped;
+ return true;
+}
+let trackerAttempts=0;
+const trackerTimer=setInterval(()=>{
+ trackerAttempts++;
+ if(installDailyChallengeTracker() || trackerAttempts>=20) clearInterval(trackerTimer);
+},250);
