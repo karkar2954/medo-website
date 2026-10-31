@@ -791,3 +791,4 @@ function showNotification(message) {
 }
 
 window.showNotification = showNotification;
+window.toggleTask = toggleTask;
