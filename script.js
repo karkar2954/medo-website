@@ -558,19 +558,27 @@ await loadTasks();
 startWebsite();
 // تحميل بيانات الملف الشخصي
 async function loadProfileSection() {
-    const { data: { user }, error } = await supabase.auth.getUser();
+    console.log("بدأ تحميل الملف الشخصي");
 
-    if (error || !user) return;
+    const { data, error } = await supabase.auth.getUser();
+
+    console.log("نتيجة تحميل المستخدم:", data, error);
+
+    if (error || !data.user) {
+        console.log("لم يتم العثور على مستخدم مسجل الدخول");
+        return;
+    }
 
     document.getElementById("profileName").textContent =
-        user.user_metadata?.username || "بدون اسم";
+        data.user.user_metadata?.username || "بدون اسم";
 
     document.getElementById("profileEmail").textContent =
-        user.email || "غير متاح";
+        data.user.email || "غير متاح";
 
     document.getElementById("profileDate").textContent =
-        new Date(user.created_at).toLocaleDateString("ar-EG");
+        new Date(data.user.created_at).toLocaleDateString("ar-EG");
 }
+
 
 // تعديل اسم المستخدم
 async function editProfileName() {
