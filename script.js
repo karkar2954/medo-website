@@ -311,26 +311,29 @@ if (error) {
 
 input.value = '';
 await loadTasks();
-
+await loadAchievements();
 
 }
-
 async function toggleTask(id, completed) {
-const { error } = await supabase
-.from('tasks')
-.update({ completed: !completed })
-.eq('id', id);
 
+    const { error } = await supabase
+        .from('tasks')
+        .update({ completed: !completed })
+        .eq('id', id);
 
-if (error) {
-    alert('تعذر تحديث المهمة.');
-    console.error(error);
-    return;
-}
+    if (error) {
+        alert('تعذر تحديث المهمة.');
+        console.error(error);
+        return;
+    }
 
-await loadTasks();
+    await loadTasks();
 
-
+    if (!completed) {
+        showNotification("🎉 مبروك! كسبت 10 نقاط.");
+    } else {
+        showNotification("تم إلغاء إكمال المهمة.");
+    }
 }
 
 async function deleteTask(id) {
@@ -711,6 +714,8 @@ async function uploadAvatar() {
 }
 
 window.uploadAvatar = uploadAvatar;
+let knownAchievementIds = null;
+
 async function loadAchievements() {
     const list = document.getElementById("achievementsList");
 
@@ -734,6 +739,18 @@ async function loadAchievements() {
         return;
     }
 
+    const currentIds = new Set((data || []).map(item => item.id));
+
+    if (knownAchievementIds !== null) {
+        (data || []).forEach(item => {
+            if (!knownAchievementIds.has(item.id)) {
+                showNotification("🏆 إنجاز جديد: " + item.achievement_name);
+            }
+        });
+    }
+
+    knownAchievementIds = currentIds;
+
     if (!data || data.length === 0) {
         list.textContent = "لسه مفيش إنجازات. ابدأ أكمل مهامك! 💪";
         return;
@@ -756,3 +773,20 @@ async function loadAchievements() {
         list.appendChild(card);
     });
 }
+function showNotification(message) {
+    const box = document.getElementById("notificationBox");
+
+    if (!box) return;
+
+    const notification = document.createElement("div");
+    notification.className = "notification";
+    notification.textContent = message;
+
+    box.appendChild(notification);
+
+    setTimeout(() => {
+        notification.remove();
+    }, 4000);
+}
+
+window.showNotification = showNotification;
