@@ -1,11 +1,15 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
+// بيانات Supabase
 const SUPABASE_URL = 'https://yfktbkqerjvhgopnoowj.supabase.co';
-const SUPABASE_KEY = 'ضع_هنا_Publishable_Key_الجديد';
+const SUPABASE_KEY = 'sb_publishable_DnWZ6SjWDdwZ3eNWL3MQAA_cY4CJ0mI';
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// التحقق من تسجيل الدخول
+// =========================
+// تسجيل الدخول
+// =========================
+
 async function checkLogin() {
 const { data, error } = await supabase.auth.getSession();
 
@@ -20,13 +24,12 @@ return true;
 
 }
 
-// تسجيل الخروج
 async function logout() {
 const { error } = await supabase.auth.signOut();
 
 ```
 if (error) {
-    alert('حصل خطأ أثناء تسجيل الخروج');
+    alert('حصل خطأ أثناء تسجيل الخروج.');
     return;
 }
 
@@ -35,364 +38,359 @@ window.location.href = 'login.html';
 
 }
 
-// حذف الحساب
-// حذف الحساب نهائيًا يحتاج إجراء آمن على الخادم، وليس من المتصفح.
-function deleteAccount() {
-alert('حذف الحساب نهائيًا سيتم تجهيزه في خطوة منفصلة لحماية حسابك.');
+async function deleteAccount() {
+alert('حذف الحساب نهائيًا يحتاج إعدادًا آمنًا منفصلًا. لم يتم حذف حسابك.');
 }
 
-// رسالة ترحيب
-function sayHello() {
-alert('أهلاً بيك في موقعي الشخصي ❤️');
-}
+// =========================
+// المظهر والألوان
+// =========================
 
-// تغيير الوضع الليلي والنهاري
 function changeTheme() {
-document.body.classList.toggle('light');
+document.body.classList.toggle('light-mode');
 
 ```
-let btn = document.getElementById('themeBtn');
+const button = document.getElementById('themeBtn');
 
-if (document.body.classList.contains('light')) {
-    btn.innerText = '🌙 الوضع الليلي';
+if (document.body.classList.contains('light-mode')) {
+    button.textContent = '🌙 الوضع الليلي';
+    localStorage.setItem('theme', 'light');
 } else {
-    btn.innerText = '☀️ الوضع النهاري';
+    button.textContent = '☀️ الوضع النهاري';
+    localStorage.setItem('theme', 'dark');
 }
 ```
 
 }
 
-// عداد الزيارات
-let visits = Number(localStorage.getItem('visits')) || 0;
-visits++;
-localStorage.setItem('visits', visits);
-document.getElementById('visitCount').innerText = visits;
-
-// حفظ اسم الزائر
-let visitorName = localStorage.getItem('visitorName');
-
-if (visitorName === null) {
-visitorName = prompt('أهلاً بيك! ممكن أعرف اسمك؟');
-
-```
-if (visitorName !== null && visitorName.trim() !== '') {
-    localStorage.setItem('visitorName', visitorName);
-}
-```
-
-}
-
-if (visitorName && visitorName.trim() !== '') {
-document.getElementById('welcome').innerText =
-'أهلاً بيك يا ' + visitorName + ' ❤️';
-}
-
-// تغيير الاسم
-function changeName() {
-let newName = prompt('اكتب اسمك الجديد');
-
-```
-if (newName !== null && newName.trim() !== '') {
-    localStorage.setItem('visitorName', newName);
-    document.getElementById('welcome').innerText =
-        'أهلاً بيك يا ' + newName + ' ❤️';
-}
-```
-
-}
-
-// مسح الاسم
-function resetName() {
-localStorage.removeItem('visitorName');
-
-```
-let visitorName = prompt('اكتب اسمك من جديد');
-
-if (visitorName !== null && visitorName.trim() !== '') {
-    localStorage.setItem('visitorName', visitorName);
-    document.getElementById('welcome').innerText =
-        'أهلاً بيك يا ' + visitorName + ' ❤️';
-} else {
-    document.getElementById('welcome').innerText =
-        'أهلاً بيكم، أنا Medo 👋';
-}
-```
-
-}
-
-// الساعة والتاريخ
-function updateClock() {
-let now = new Date();
-
-```
-document.getElementById('time').innerText =
-    now.toLocaleTimeString('ar-EG');
-
-document.getElementById('date').innerText =
-    now.toLocaleDateString('ar-EG');
-```
-
-}
-
-updateClock();
-setInterval(updateClock, 1000);
-
-// تغيير لون الموقع
 function changeColor(color) {
-document.querySelector('.card').style.borderTop =
-'5px solid ' + color;
-
-```
-document.querySelectorAll('h2').forEach(function(title) {
-    title.style.color = color;
-});
-
-localStorage.setItem('siteColor', color);
-```
-
+document.documentElement.style.setProperty('--main-color', color);
+localStorage.setItem('mainColor', color);
 }
 
-// استرجاع اللون
-let savedColor = localStorage.getItem('siteColor');
-
-if (savedColor !== null) {
-changeColor(savedColor);
-}
-
-// رسالة الترحيب حسب الوقت
-function updateGreeting() {
-let hour = new Date().getHours();
-let message = '';
-
-```
-if (hour >= 5 && hour < 12) {
-    message = 'صباح الخير ☀️';
-} else if (hour >= 12 && hour < 18) {
-    message = 'مساء الخير 🌤️';
-} else {
-    message = 'مساء الخير 🌙';
-}
-
-document.getElementById('greeting').innerText = message;
-```
-
-}
-
-updateGreeting();
-
-// تغيير الخلفية
 function changeBackground(color) {
-document.body.style.backgroundColor = color;
+document.body.style.background = color;
 localStorage.setItem('backgroundColor', color);
 }
 
-// استرجاع الخلفية
-let savedBackground = localStorage.getItem('backgroundColor');
-
-if (savedBackground !== null) {
-changeBackground(savedBackground);
-}
-
-// إعادة ضبط الإعدادات
 function resetSettings() {
-localStorage.removeItem('siteColor');
+localStorage.removeItem('theme');
+localStorage.removeItem('mainColor');
 localStorage.removeItem('backgroundColor');
+localStorage.removeItem('visitorName');
 
 ```
-document.querySelector('.card').style.borderTop = '';
-
-document.querySelectorAll('h2').forEach(function(title) {
-    title.style.color = '';
-});
-
-document.body.style.backgroundColor = '';
-
-alert('تمت إعادة الإعدادات للوضع الأصلي ❤️');
+location.reload();
 ```
 
 }
 
-// حفظ المهام محليًا مؤقتًا
-function saveTasks() {
-let tasks = [];
+function loadSettings() {
+const theme = localStorage.getItem('theme');
+const color = localStorage.getItem('mainColor');
+const background = localStorage.getItem('backgroundColor');
 
 ```
-document.querySelectorAll('#taskList li').forEach(function(li) {
-    tasks.push({
-        text: li.firstChild.textContent,
-        completed: li.classList.contains('completed'),
-        createdAt: li.dataset.createdAt,
-        priority: li.dataset.priority || 'medium'
+if (theme === 'light') {
+    document.body.classList.add('light-mode');
+    document.getElementById('themeBtn').textContent = '🌙 الوضع الليلي';
+}
+
+if (color) {
+    document.documentElement.style.setProperty('--main-color', color);
+}
+
+if (background) {
+    document.body.style.background = background;
+}
+```
+
+}
+
+// =========================
+// اسم الزائر
+// =========================
+
+function changeName() {
+const name = prompt('اكتب اسمك:');
+
+```
+if (name && name.trim()) {
+    localStorage.setItem('visitorName', name.trim());
+    updateGreeting();
+}
+```
+
+}
+
+function resetName() {
+localStorage.removeItem('visitorName');
+updateGreeting();
+}
+
+function updateGreeting() {
+const name = localStorage.getItem('visitorName');
+const greeting = document.getElementById('greeting');
+
+```
+if (name) {
+    greeting.textContent = `أهلاً بيك يا ${name} 👋`;
+} else {
+    greeting.textContent = 'أهلاً بيك في موقعي الشخصي ❤️';
+}
+```
+
+}
+
+// =========================
+// عدد الزيارات
+// =========================
+
+function updateVisits() {
+let visits = Number(localStorage.getItem('visitCount') || 0);
+
+```
+visits++;
+localStorage.setItem('visitCount', visits);
+
+document.getElementById('visitCount').textContent = visits;
+```
+
+}
+
+// =========================
+// الساعة والتاريخ
+// =========================
+
+function updateClock() {
+const now = new Date();
+
+```
+document.getElementById('time').textContent =
+    now.toLocaleTimeString('ar-EG');
+
+document.getElementById('date').textContent =
+    now.toLocaleDateString('ar-EG', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
     });
-});
-
-localStorage.setItem('myTasks', JSON.stringify(tasks));
 ```
 
 }
 
-// تحديث إحصائيات المهام
-function updateTaskStats() {
-let tasks = document.querySelectorAll('#taskList li');
+// =========================
+// قائمة المهام - Supabase
+// =========================
+
+let tasks = [];
+let visibleTasks = [];
+
+async function loadTasks() {
+const { data, error } = await supabase
+.from('tasks')
+.select('*')
+.order('created_at', { ascending: false });
 
 ```
-let total = tasks.length;
-
-let completed = document.querySelectorAll(
-    '#taskList li.completed'
-).length;
-
-let remaining = total - completed;
-
-document.getElementById('totalTasks').innerText = total;
-document.getElementById('completedTasks').innerText = completed;
-document.getElementById('remainingTasks').innerText = remaining;
-
-let percentage = total === 0 ? 0 :
-    Math.round((completed / total) * 100);
-
-document.getElementById('progressBar').style.width =
-    percentage + '%';
-
-document.getElementById('progressText').innerText =
-    'نسبة الإنجاز: ' + percentage + '%';
-```
-
-}
-
-// إنشاء مهمة
-function createTask(
-text,
-completed = false,
-createdAt = null,
-priority = 'medium'
-) {
-let li = document.createElement('li');
-
-```
-let taskText = document.createTextNode(text);
-li.appendChild(taskText);
-
-li.dataset.priority = priority;
-
-let priorityText = document.createElement('small');
-
-let priorityNames = {
-    low: '🟢 أولوية منخفضة',
-    medium: '🟡 أولوية متوسطة',
-    high: '🔴 أولوية عالية'
-};
-
-priorityText.innerText =
-    ' - ' + (priorityNames[priority] || priorityNames.medium);
-
-li.appendChild(priorityText);
-
-let date = createdAt ? new Date(createdAt) : new Date();
-
-li.dataset.createdAt = date.toISOString();
-
-let taskDate = document.createElement('small');
-
-taskDate.innerText =
-    ' - أُضيفت: ' + date.toLocaleString('ar-EG');
-
-li.appendChild(taskDate);
-
-if (completed) {
-    li.classList.add('completed');
-}
-
-li.onclick = function() {
-    li.classList.toggle('completed');
-    saveTasks();
-    updateTaskStats();
-};
-
-// زر التعديل
-let editBtn = document.createElement('button');
-editBtn.innerText = 'تعديل ✏️';
-
-editBtn.onclick = function(event) {
-    event.stopPropagation();
-
-    let newText = prompt(
-        'اكتب اسم المهمة الجديد:',
-        taskText.textContent
-    );
-
-    if (newText !== null && newText.trim() !== '') {
-        taskText.textContent = newText.trim();
-        saveTasks();
-    }
-};
-
-li.appendChild(editBtn);
-
-// زر الحذف
-let deleteBtn = document.createElement('button');
-deleteBtn.innerText = 'حذف ❌';
-
-deleteBtn.onclick = function(event) {
-    event.stopPropagation();
-
-    li.remove();
-    saveTasks();
-    updateTaskStats();
-};
-
-li.appendChild(deleteBtn);
-
-document.getElementById('taskList').appendChild(li);
-```
-
-}
-
-// إضافة مهمة
-function addTask() {
-let input = document.getElementById('taskInput');
-let task = input.value.trim();
-
-```
-let priority = document.getElementById('taskPriority').value;
-
-if (task === '') {
-    alert('اكتب المهمة الأول!');
+if (error) {
+    console.error('خطأ تحميل المهام:', error);
+    alert('تعذر تحميل المهام. تأكد من الاتصال بـ Supabase.');
     return;
 }
 
-createTask(task, false, null, priority);
+tasks = data || [];
+applyTaskFilters();
+```
 
-saveTasks();
-updateTaskStats();
+}
+
+async function addTask() {
+const input = document.getElementById('taskInput');
+const title = input.value.trim();
+const priority = document.getElementById('taskPriority').value;
+
+```
+if (!title) {
+    alert('اكتب المهمة الأول.');
+    return;
+}
+
+const { data: userData, error: userError } =
+    await supabase.auth.getUser();
+
+if (userError || !userData.user) {
+    alert('سجّل الدخول الأول.');
+    return;
+}
+
+const { error } = await supabase
+    .from('tasks')
+    .insert([{
+        user_id: userData.user.id,
+        title: title,
+        completed: false,
+        priority: priority
+    }]);
+
+if (error) {
+    console.error(error);
+    alert('لم تتم إضافة المهمة. حاول مرة أخرى.');
+    return;
+}
 
 input.value = '';
+await loadTasks();
 ```
 
 }
 
-// إضافة المهمة بزر Enter
-document.getElementById('taskInput').addEventListener(
-'keydown',
-function(event) {
-if (event.key === 'Enter') {
-addTask();
-}
-}
-);
-
-// تحميل المهام المحفوظة
-function loadTasks() {
-let tasks = JSON.parse(localStorage.getItem('myTasks')) || [];
+async function toggleTask(id, completed) {
+const { error } = await supabase
+.from('tasks')
+.update({ completed: !completed })
+.eq('id', id);
 
 ```
-tasks.forEach(function(task) {
-    createTask(
-        task.text,
-        task.completed,
-        task.createdAt,
-        task.priority || 'medium'
-    );
+if (error) {
+    alert('تعذر تحديث المهمة.');
+    console.error(error);
+    return;
+}
+
+await loadTasks();
+```
+
+}
+
+async function deleteTask(id) {
+if (!confirm('هل تريد حذف المهمة؟')) return;
+
+```
+const { error } = await supabase
+    .from('tasks')
+    .delete()
+    .eq('id', id);
+
+if (error) {
+    alert('تعذر حذف المهمة.');
+    console.error(error);
+    return;
+}
+
+await loadTasks();
+```
+
+}
+
+async function editTask(id) {
+const task = tasks.find(item => item.id === id);
+if (!task) return;
+
+```
+const newTitle = prompt('اكتب اسم المهمة الجديد:', task.title);
+
+if (!newTitle || !newTitle.trim()) return;
+
+const { error } = await supabase
+    .from('tasks')
+    .update({ title: newTitle.trim() })
+    .eq('id', id);
+
+if (error) {
+    alert('تعذر تعديل المهمة.');
+    console.error(error);
+    return;
+}
+
+await loadTasks();
+```
+
+}
+
+async function clearTasks() {
+if (!confirm('هل أنت متأكد من مسح كل المهام؟')) return;
+
+```
+const { error } = await supabase
+    .from('tasks')
+    .delete()
+    .not('id', 'is', null);
+
+if (error) {
+    alert('تعذر مسح المهام.');
+    console.error(error);
+    return;
+}
+
+await loadTasks();
+```
+
+}
+
+async function clearCompletedTasks() {
+if (!confirm('هل تريد مسح المهام المكتملة؟')) return;
+
+```
+const { error } = await supabase
+    .from('tasks')
+    .delete()
+    .eq('completed', true);
+
+if (error) {
+    alert('تعذر مسح المهام المكتملة.');
+    console.error(error);
+    return;
+}
+
+await loadTasks();
+```
+
+}
+
+// =========================
+// عرض المهام والإحصائيات
+// =========================
+
+function renderTasks() {
+const list = document.getElementById('taskList');
+list.innerHTML = '';
+
+```
+visibleTasks.forEach(task => {
+    const li = document.createElement('li');
+
+    const title = document.createElement('span');
+    title.textContent = task.title;
+
+    if (task.completed) {
+        title.style.textDecoration = 'line-through';
+    }
+
+    const priorityNames = {
+        low: '🟢 منخفضة',
+        medium: '🟡 متوسطة',
+        high: '🔴 عالية'
+    };
+
+    const priority = document.createElement('small');
+    priority.textContent = ` ${priorityNames[task.priority] || ''} `;
+
+    const completeButton = document.createElement('button');
+    completeButton.textContent = task.completed ? 'إلغاء الإكمال' : 'إكمال';
+    completeButton.onclick = () => toggleTask(task.id, task.completed);
+
+    const editButton = document.createElement('button');
+    editButton.textContent = 'تعديل ✏️';
+    editButton.onclick = () => editTask(task.id);
+
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'حذف 🗑️';
+    deleteButton.onclick = () => deleteTask(task.id);
+
+    li.append(title, priority, completeButton, editButton, deleteButton);
+    list.appendChild(li);
 });
 
 updateTaskStats();
@@ -400,92 +398,53 @@ updateTaskStats();
 
 }
 
-// مسح كل المهام
-function clearTasks() {
-let confirmDelete = confirm(
-'متأكد إنك عايز تمسح كل المهام؟'
-);
+function updateTaskStats() {
+const total = tasks.length;
+const completed = tasks.filter(task => task.completed).length;
+const remaining = total - completed;
+const percentage = total ? Math.round((completed / total) * 100) : 0;
 
 ```
-if (confirmDelete) {
-    document.getElementById('taskList').innerHTML = '';
-    localStorage.removeItem('myTasks');
-    updateTaskStats();
-}
-```
-
-}
-
-// مسح المهام المكتملة فقط
-function clearCompletedTasks() {
-let confirmDelete = confirm(
-'متأكد إنك عايز تمسح المهام المكتملة؟'
-);
-
-```
-if (confirmDelete) {
-    document.querySelectorAll(
-        '#taskList li.completed'
-    ).forEach(function(task) {
-        task.remove();
-    });
-
-    saveTasks();
-    updateTaskStats();
-}
+document.getElementById('totalTasks').textContent = total;
+document.getElementById('completedTasks').textContent = completed;
+document.getElementById('remainingTasks').textContent = remaining;
+document.getElementById('progressBar').style.width = percentage + '%';
+document.getElementById('progressText').textContent =
+    `نسبة الإنجاز: ${percentage}%`;
 ```
 
 }
 
-// البحث والفلترة
+// =========================
+// البحث والفلاتر والترتيب
+// =========================
+
 function applyTaskFilters() {
-let searchValue = document.getElementById(
-'searchTask'
-).value.toLowerCase();
+const search = document.getElementById('searchTask').value.toLowerCase();
+const filter = document.getElementById('taskFilter').value;
+const priority = document.getElementById('priorityFilter').value;
 
 ```
-let filterValue = document.getElementById(
-    'taskFilter'
-).value;
+visibleTasks = tasks.filter(task => {
+    const matchesSearch = task.title.toLowerCase().includes(search);
 
-let priorityValue = document.getElementById(
-    'priorityFilter'
-).value;
+    const matchesStatus =
+        filter === 'all' ||
+        (filter === 'completed' && task.completed) ||
+        (filter === 'uncompleted' && !task.completed);
 
-document.querySelectorAll('#taskList li').forEach(
-    function(task) {
-        let taskName = task.firstChild.textContent.toLowerCase();
+    const matchesPriority =
+        priority === 'all' || task.priority === priority;
 
-        let isCompleted = task.classList.contains('completed');
+    return matchesSearch && matchesStatus && matchesPriority;
+});
 
-        let taskPriority = task.dataset.priority || 'medium';
-
-        let matchesSearch = taskName.includes(searchValue);
-
-        let matchesFilter =
-            filterValue === 'all' ||
-            (filterValue === 'completed' && isCompleted) ||
-            (filterValue === 'uncompleted' && !isCompleted);
-
-        let matchesPriority =
-            priorityValue === 'all' ||
-            taskPriority === priorityValue;
-
-        task.style.display =
-            matchesSearch && matchesFilter && matchesPriority
-            ? ''
-            : 'none';
-    }
-);
+sortTasks(false);
 ```
 
 }
 
 function searchTasks() {
-applyTaskFilters();
-}
-
-function filterTasks() {
 applyTaskFilters();
 }
 
@@ -498,79 +457,71 @@ function showAllTasks() {
 document.getElementById('searchTask').value = '';
 document.getElementById('taskFilter').value = 'all';
 document.getElementById('priorityFilter').value = 'all';
-
-```
 applyTaskFilters();
+}
+
+function sortTasks(applyFilters = true) {
+if (applyFilters) {
+applyTaskFilters();
+return;
+}
+
+```
+const sort = document.getElementById('taskSort').value;
+
+visibleTasks.sort((a, b) => {
+    const dateA = new Date(a.created_at);
+    const dateB = new Date(b.created_at);
+
+    return sort === 'oldest' ? dateA - dateB : dateB - dateA;
+});
+
+renderTasks();
 ```
 
 }
 
-// ترتيب المهام حسب التاريخ
-function sortTasks() {
-let taskList = document.getElementById('taskList');
-let tasks = Array.from(taskList.children);
+// =========================
+// تشغيل وظائف الموقع
+// =========================
 
-```
-let sortValue = document.getElementById('taskSort').value;
-
-tasks.sort(function(a, b) {
-    let dateA = new Date(a.dataset.createdAt);
-    let dateB = new Date(b.dataset.createdAt);
-
-    if (sortValue === 'newest') {
-        return dateB - dateA;
-    } else {
-        return dateA - dateB;
-    }
-});
-
-tasks.forEach(function(task) {
-    taskList.appendChild(task);
-});
-```
-
-}
-
-// زر العودة للأعلى
-const backToTop = document.getElementById('backToTop');
-
-backToTop.style.display = 'none';
-
-window.addEventListener('scroll', function() {
-if (window.scrollY > 300) {
-backToTop.style.display = 'block';
-} else {
-backToTop.style.display = 'none';
-}
-});
-
-// إتاحة الدوال لأزرار HTML
 Object.assign(window, {
-logout,
-deleteAccount,
-sayHello,
 changeTheme,
-changeName,
-resetName,
 changeColor,
 changeBackground,
 resetSettings,
+changeName,
+resetName,
+logout,
+deleteAccount,
 addTask,
 clearTasks,
 clearCompletedTasks,
 searchTasks,
-filterTasks,
-applyTaskFilters,
 clearSearch,
 showAllTasks,
+applyTaskFilters,
 sortTasks
 });
 
-// تشغيل الموقع بعد التأكد من تسجيل الدخول
-const isLoggedIn = await checkLogin();
+async function startWebsite() {
+const loggedIn = await checkLogin();
 
-if (isLoggedIn) {
+```
+if (!loggedIn) return;
+
 document.getElementById('logoutBtn').style.display = 'inline-block';
 document.getElementById('deleteAccountBtn').style.display = 'inline-block';
-loadTasks();
+
+loadSettings();
+updateGreeting();
+updateVisits();
+updateClock();
+setInterval(updateClock, 1000);
+
+await loadTasks();
+```
+
 }
+
+startWebsite();
