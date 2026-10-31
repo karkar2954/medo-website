@@ -279,7 +279,7 @@ async function addTask() {
 const input = document.getElementById('taskInput');
 const title = input.value.trim();
 const priority = document.getElementById('taskPriority').value;
-
+const dueDate = document.getElementById('taskDueDate').value;
 
 if (!title) {
     alert('اكتب المهمة الأول.');
@@ -300,7 +300,8 @@ const { error } = await supabase
         user_id: userData.user.id,
         title: title,
         completed: false,
-        priority: priority
+        priority: priority,
+due_date: dueDate
     }]);
 
 if (error) {
@@ -437,7 +438,11 @@ visibleTasks.forEach(task => {
 
     const title = document.createElement('span');
     title.textContent = task.title;
-
+if (task.due_date) {
+    const dueDate = document.createElement('small');
+    dueDate.textContent = ' 📅 موعد التسليم: ' + task.due_date;
+    li.appendChild(dueDate);
+}
     if (task.completed) {
         title.style.textDecoration = 'line-through';
     }
