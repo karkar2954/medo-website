@@ -48,7 +48,7 @@ async function deleteAccount() {
     await supabase.auth.getSession();
 
   const session = sessionData?.session;
-
+console.log("هل الجلسة موجودة؟", !!session, "هل التوكن موجود؟", !!session?.access_token);
   if (sessionError || !session) {
     alert("جلسة تسجيل الدخول غير موجودة. سجّل الدخول مرة أخرى.");
     return;
@@ -556,3 +556,44 @@ await loadTasks();
 }
 
 startWebsite();
+// تحميل بيانات الملف الشخصي
+async function loadProfileSection() {
+    const { data: { user }, error } = await supabase.auth.getUser();
+
+    if (error || !user) return;
+
+    document.getElementById("profileName").textContent =
+        user.user_metadata?.username || "بدون اسم";
+
+    document.getElementById("profileEmail").textContent =
+        user.email || "غير متاح";
+
+    document.getElementById("profileDate").textContent =
+        new Date(user.created_at).toLocaleDateString("ar-EG");
+}
+
+// تعديل اسم المستخدم
+async function editProfileName() {
+    const newName = prompt("اكتب الاسم الجديد:");
+
+    if (!newName || !newName.trim()) return;
+
+    const { error } = await supabase.auth.updateUser({
+        data: { username: newName.trim() }
+    });
+
+    if (error) {
+        alert("حصل خطأ أثناء تعديل الاسم.");
+        console.error(error);
+        return;
+    }
+
+    await loadProfileSection();
+    alert("تم تعديل الاسم بنجاح!");
+}
+
+// إتاحة الوظيفة لزر HTML
+window.editProfileName = editProfileName;
+
+// تحميل البيانات
+loadProfileSection();
