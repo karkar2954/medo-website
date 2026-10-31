@@ -127,18 +127,16 @@ function resetName() {
 localStorage.removeItem('visitorName');
 updateGreeting();
 }
-
 function updateGreeting() {
-const name = localStorage.getItem('visitorName');
-const greeting = document.getElementById('greeting');
+    const name = localStorage.getItem("visitorName");
+    const greeting = document.getElementById("greeting");
 
-```
-if (name) {
-    greeting.textContent = `أهلاً بيك يا ${name} 👋`;
-} else {
-    greeting.textContent = 'أهلاً بيك في موقعي الشخصي ❤️';
+    if (name) {
+        greeting.textContent = "أهلاً بيك يا " + name + " 👋";
+    } else {
+        greeting.textContent = "أهلاً بيك في موقعي الشخصي ❤️";
+    }
 }
-```
 
 }
 
