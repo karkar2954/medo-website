@@ -452,7 +452,10 @@ visibleTasks.forEach(task => {
 
     const completeButton = document.createElement('button');
     completeButton.textContent = task.completed ? 'إلغاء الإكمال' : 'إكمال';
-    completeButton.onclick = () => toggleTask(task.id, task.completed);
+    completeButton.onclick = () => {
+    console.log("تم الضغط على زر إكمال المهمة");
+    toggleTask(task.id, task.completed);
+};
 
     const editButton = document.createElement('button');
     editButton.textContent = 'تعديل ✏️';
