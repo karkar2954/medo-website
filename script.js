@@ -244,6 +244,20 @@ function updateDashboard() {
     document.getElementById("dashTasks").textContent = total;
     document.getElementById("dashCompleted").textContent = completed;
     document.getElementById("dashAccount").textContent = "نشط";
+
+    // حساب النقاط والمستويات
+    const points = completed * 10;
+    const level = Math.floor(points / 100) + 1;
+    const progress = points % 100;
+
+    document.getElementById("dashPoints").textContent = points;
+    document.getElementById("dashLevel").textContent = "المستوى " + level;
+
+    document.getElementById("levelProgress").style.width =
+        progress + "%";
+
+    document.getElementById("nextLevel").textContent =
+        "باقي " + (100 - progress) + " نقطة للمستوى التالي";
 }
 async function addTask() {
 const input = document.getElementById('taskInput');
