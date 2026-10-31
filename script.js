@@ -330,6 +330,7 @@ async function toggleTask(id, completed) {
     await loadTasks();
 
     if (!completed) {
+        console.log("وصلنا لاستدعاء الإشعار");
         showNotification("🎉 مبروك! كسبت 10 نقاط.");
     } else {
         showNotification("تم إلغاء إكمال المهمة.");
