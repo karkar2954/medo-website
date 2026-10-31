@@ -1,83 +1,137 @@
-// منع فتح الموقع بدون تسجيل الدخول
-if (localStorage.getItem("isLoggedIn") !== "true") {
-    window.location.href = "login.html";
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+const SUPABASE_URL = 'https://yfktbkqerjvhgopnoowj.supabase.co';
+const SUPABASE_KEY = 'ضع_هنا_Publishable_Key_الجديد';
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// التحقق من تسجيل الدخول
+async function checkLogin() {
+const { data, error } = await supabase.auth.getSession();
+
+```
+if (error || !data.session) {
+    window.location.href = 'login.html';
+    return false;
 }
+
+return true;
+```
+
+}
+
+// تسجيل الخروج
+async function logout() {
+const { error } = await supabase.auth.signOut();
+
+```
+if (error) {
+    alert('حصل خطأ أثناء تسجيل الخروج');
+    return;
+}
+
+window.location.href = 'login.html';
+```
+
+}
+
+// حذف الحساب
+// حذف الحساب نهائيًا يحتاج إجراء آمن على الخادم، وليس من المتصفح.
+function deleteAccount() {
+alert('حذف الحساب نهائيًا سيتم تجهيزه في خطوة منفصلة لحماية حسابك.');
+}
+
 // رسالة ترحيب
 function sayHello() {
-    alert("أهلاً بيك في موقعي الشخصي ❤️");
+alert('أهلاً بيك في موقعي الشخصي ❤️');
 }
 
 // تغيير الوضع الليلي والنهاري
 function changeTheme() {
-    document.body.classList.toggle("light");
+document.body.classList.toggle('light');
 
-    let btn = document.getElementById("themeBtn");
+```
+let btn = document.getElementById('themeBtn');
 
-    if (document.body.classList.contains("light")) {
-        btn.innerText = "🌙 الوضع الليلي";
-    } else {
-        btn.innerText = "☀️ الوضع النهاري";
-    }
+if (document.body.classList.contains('light')) {
+    btn.innerText = '🌙 الوضع الليلي';
+} else {
+    btn.innerText = '☀️ الوضع النهاري';
+}
+```
+
 }
 
 // عداد الزيارات
-let visits = Number(localStorage.getItem("visits")) || 0;
+let visits = Number(localStorage.getItem('visits')) || 0;
 visits++;
-localStorage.setItem("visits", visits);
-document.getElementById("visitCount").innerText = visits;
+localStorage.setItem('visits', visits);
+document.getElementById('visitCount').innerText = visits;
 
 // حفظ اسم الزائر
-let visitorName = localStorage.getItem("visitorName");
+let visitorName = localStorage.getItem('visitorName');
 
 if (visitorName === null) {
-    visitorName = prompt("أهلاً بيك! ممكن أعرف اسمك؟");
+visitorName = prompt('أهلاً بيك! ممكن أعرف اسمك؟');
 
-    if (visitorName !== null && visitorName.trim() !== "") {
-        localStorage.setItem("visitorName", visitorName);
-    }
+```
+if (visitorName !== null && visitorName.trim() !== '') {
+    localStorage.setItem('visitorName', visitorName);
+}
+```
+
 }
 
-if (visitorName && visitorName.trim() !== "") {
-    document.getElementById("welcome").innerText =
-        "أهلاً بيك يا " + visitorName + " ❤️";
+if (visitorName && visitorName.trim() !== '') {
+document.getElementById('welcome').innerText =
+'أهلاً بيك يا ' + visitorName + ' ❤️';
 }
 
 // تغيير الاسم
 function changeName() {
-    let newName = prompt("اكتب اسمك الجديد");
+let newName = prompt('اكتب اسمك الجديد');
 
-    if (newName !== null && newName.trim() !== "") {
-        localStorage.setItem("visitorName", newName);
-        document.getElementById("welcome").innerText =
-            "أهلاً بيك يا " + newName + " ❤️";
-    }
+```
+if (newName !== null && newName.trim() !== '') {
+    localStorage.setItem('visitorName', newName);
+    document.getElementById('welcome').innerText =
+        'أهلاً بيك يا ' + newName + ' ❤️';
+}
+```
+
 }
 
 // مسح الاسم
 function resetName() {
-    localStorage.removeItem("visitorName");
+localStorage.removeItem('visitorName');
 
-    let visitorName = prompt("اكتب اسمك من جديد");
+```
+let visitorName = prompt('اكتب اسمك من جديد');
 
-    if (visitorName !== null && visitorName.trim() !== "") {
-        localStorage.setItem("visitorName", visitorName);
-        document.getElementById("welcome").innerText =
-            "أهلاً بيك يا " + visitorName + " ❤️";
-    } else {
-        document.getElementById("welcome").innerText =
-            "أهلاً بيكم، أنا Medo 👋";
-    }
+if (visitorName !== null && visitorName.trim() !== '') {
+    localStorage.setItem('visitorName', visitorName);
+    document.getElementById('welcome').innerText =
+        'أهلاً بيك يا ' + visitorName + ' ❤️';
+} else {
+    document.getElementById('welcome').innerText =
+        'أهلاً بيكم، أنا Medo 👋';
+}
+```
+
 }
 
 // الساعة والتاريخ
 function updateClock() {
-    let now = new Date();
+let now = new Date();
 
-    document.getElementById("time").innerText =
-        now.toLocaleTimeString("ar-EG");
+```
+document.getElementById('time').innerText =
+    now.toLocaleTimeString('ar-EG');
 
-    document.getElementById("date").innerText =
-        now.toLocaleDateString("ar-EG");
+document.getElementById('date').innerText =
+    now.toLocaleDateString('ar-EG');
+```
+
 }
 
 updateClock();
@@ -85,398 +139,438 @@ setInterval(updateClock, 1000);
 
 // تغيير لون الموقع
 function changeColor(color) {
-    document.querySelector(".card").style.borderTop =
-        "5px solid " + color;
+document.querySelector('.card').style.borderTop =
+'5px solid ' + color;
 
-    document.querySelectorAll("h2").forEach(function(title) {
-        title.style.color = color;
-    });
+```
+document.querySelectorAll('h2').forEach(function(title) {
+    title.style.color = color;
+});
 
-    localStorage.setItem("siteColor", color);
+localStorage.setItem('siteColor', color);
+```
+
 }
 
 // استرجاع اللون
-let savedColor = localStorage.getItem("siteColor");
+let savedColor = localStorage.getItem('siteColor');
 
 if (savedColor !== null) {
-    changeColor(savedColor);
+changeColor(savedColor);
 }
 
 // رسالة الترحيب حسب الوقت
 function updateGreeting() {
-    let hour = new Date().getHours();
-    let message = "";
+let hour = new Date().getHours();
+let message = '';
 
-    if (hour >= 5 && hour < 12) {
-        message = "صباح الخير ☀️";
-    } else if (hour >= 12 && hour < 18) {
-        message = "مساء الخير 🌤️";
-    } else {
-        message = "مساء الخير 🌙";
-    }
+```
+if (hour >= 5 && hour < 12) {
+    message = 'صباح الخير ☀️';
+} else if (hour >= 12 && hour < 18) {
+    message = 'مساء الخير 🌤️';
+} else {
+    message = 'مساء الخير 🌙';
+}
 
-    document.getElementById("greeting").innerText = message;
+document.getElementById('greeting').innerText = message;
+```
+
 }
 
 updateGreeting();
 
 // تغيير الخلفية
 function changeBackground(color) {
-    document.body.style.backgroundColor = color;
-    localStorage.setItem("backgroundColor", color);
+document.body.style.backgroundColor = color;
+localStorage.setItem('backgroundColor', color);
 }
 
 // استرجاع الخلفية
-let savedBackground = localStorage.getItem("backgroundColor");
+let savedBackground = localStorage.getItem('backgroundColor');
 
 if (savedBackground !== null) {
-    changeBackground(savedBackground);
+changeBackground(savedBackground);
 }
 
 // إعادة ضبط الإعدادات
 function resetSettings() {
-    localStorage.removeItem("siteColor");
-    localStorage.removeItem("backgroundColor");
+localStorage.removeItem('siteColor');
+localStorage.removeItem('backgroundColor');
 
-    document.querySelector(".card").style.borderTop = "";
+```
+document.querySelector('.card').style.borderTop = '';
 
-    document.querySelectorAll("h2").forEach(function(title) {
-        title.style.color = "";
-    });
+document.querySelectorAll('h2').forEach(function(title) {
+    title.style.color = '';
+});
 
-    document.body.style.backgroundColor = "";
+document.body.style.backgroundColor = '';
 
-    alert("تمت إعادة الإعدادات للوضع الأصلي ❤️");
+alert('تمت إعادة الإعدادات للوضع الأصلي ❤️');
+```
+
 }
 
-// حفظ المهام
+// حفظ المهام محليًا مؤقتًا
 function saveTasks() {
-    let tasks = [];
+let tasks = [];
 
-    document.querySelectorAll("#taskList li").forEach(function(li) {
-        tasks.push({
-            text: li.firstChild.textContent,
-            completed: li.classList.contains("completed"),
-            createdAt: li.dataset.createdAt,
-            priority: li.dataset.priority || "medium"
-        });
+```
+document.querySelectorAll('#taskList li').forEach(function(li) {
+    tasks.push({
+        text: li.firstChild.textContent,
+        completed: li.classList.contains('completed'),
+        createdAt: li.dataset.createdAt,
+        priority: li.dataset.priority || 'medium'
     });
+});
 
-    localStorage.setItem("myTasks", JSON.stringify(tasks));
+localStorage.setItem('myTasks', JSON.stringify(tasks));
+```
+
 }
 
 // تحديث إحصائيات المهام
 function updateTaskStats() {
-    let tasks = document.querySelectorAll("#taskList li");
+let tasks = document.querySelectorAll('#taskList li');
 
-    let total = tasks.length;
+```
+let total = tasks.length;
 
-    let completed = document.querySelectorAll(
-        "#taskList li.completed"
-    ).length;
+let completed = document.querySelectorAll(
+    '#taskList li.completed'
+).length;
 
-    let remaining = total - completed;
+let remaining = total - completed;
 
-    document.getElementById("totalTasks").innerText = total;
-    document.getElementById("completedTasks").innerText = completed;
-    document.getElementById("remainingTasks").innerText = remaining;
+document.getElementById('totalTasks').innerText = total;
+document.getElementById('completedTasks').innerText = completed;
+document.getElementById('remainingTasks').innerText = remaining;
 
-    let percentage = total === 0 ? 0 :
-        Math.round((completed / total) * 100);
+let percentage = total === 0 ? 0 :
+    Math.round((completed / total) * 100);
 
-    document.getElementById("progressBar").style.width =
-        percentage + "%";
+document.getElementById('progressBar').style.width =
+    percentage + '%';
 
-    document.getElementById("progressText").innerText =
-        "نسبة الإنجاز: " + percentage + "%";
+document.getElementById('progressText').innerText =
+    'نسبة الإنجاز: ' + percentage + '%';
+```
+
 }
 
 // إنشاء مهمة
 function createTask(
-    text,
-    completed = false,
-    createdAt = null,
-    priority = "medium"
+text,
+completed = false,
+createdAt = null,
+priority = 'medium'
 ) {
-    let li = document.createElement("li");
+let li = document.createElement('li');
 
-    let taskText = document.createTextNode(text);
-    li.appendChild(taskText);
+```
+let taskText = document.createTextNode(text);
+li.appendChild(taskText);
 
-    li.dataset.priority = priority;
+li.dataset.priority = priority;
 
-    let priorityText = document.createElement("small");
+let priorityText = document.createElement('small');
 
-    let priorityNames = {
-        low: "🟢 أولوية منخفضة",
-        medium: "🟡 أولوية متوسطة",
-        high: "🔴 أولوية عالية"
-    };
+let priorityNames = {
+    low: '🟢 أولوية منخفضة',
+    medium: '🟡 أولوية متوسطة',
+    high: '🔴 أولوية عالية'
+};
 
-    priorityText.innerText =
-        " - " + (priorityNames[priority] || priorityNames.medium);
+priorityText.innerText =
+    ' - ' + (priorityNames[priority] || priorityNames.medium);
 
-    li.appendChild(priorityText);
+li.appendChild(priorityText);
 
-    let date = createdAt ? new Date(createdAt) : new Date();
+let date = createdAt ? new Date(createdAt) : new Date();
 
-    li.dataset.createdAt = date.toISOString();
+li.dataset.createdAt = date.toISOString();
 
-    let taskDate = document.createElement("small");
+let taskDate = document.createElement('small');
 
-    taskDate.innerText =
-        " - أُضيفت: " + date.toLocaleString("ar-EG");
+taskDate.innerText =
+    ' - أُضيفت: ' + date.toLocaleString('ar-EG');
 
-    li.appendChild(taskDate);
+li.appendChild(taskDate);
 
-    if (completed) {
-        li.classList.add("completed");
+if (completed) {
+    li.classList.add('completed');
+}
+
+li.onclick = function() {
+    li.classList.toggle('completed');
+    saveTasks();
+    updateTaskStats();
+};
+
+// زر التعديل
+let editBtn = document.createElement('button');
+editBtn.innerText = 'تعديل ✏️';
+
+editBtn.onclick = function(event) {
+    event.stopPropagation();
+
+    let newText = prompt(
+        'اكتب اسم المهمة الجديد:',
+        taskText.textContent
+    );
+
+    if (newText !== null && newText.trim() !== '') {
+        taskText.textContent = newText.trim();
+        saveTasks();
     }
+};
 
-    li.onclick = function() {
-        li.classList.toggle("completed");
-        saveTasks();
-        updateTaskStats();
-    };
+li.appendChild(editBtn);
 
-    // زر التعديل
-    let editBtn = document.createElement("button");
-    editBtn.innerText = "تعديل ✏️";
+// زر الحذف
+let deleteBtn = document.createElement('button');
+deleteBtn.innerText = 'حذف ❌';
 
-    editBtn.onclick = function(event) {
-        event.stopPropagation();
+deleteBtn.onclick = function(event) {
+    event.stopPropagation();
 
-        let newText = prompt(
-            "اكتب اسم المهمة الجديد:",
-            taskText.textContent
-        );
+    li.remove();
+    saveTasks();
+    updateTaskStats();
+};
 
-        if (newText !== null && newText.trim() !== "") {
-            taskText.textContent = newText.trim();
-            saveTasks();
-        }
-    };
+li.appendChild(deleteBtn);
 
-    li.appendChild(editBtn);
+document.getElementById('taskList').appendChild(li);
+```
 
-    // زر الحذف
-    let deleteBtn = document.createElement("button");
-    deleteBtn.innerText = "حذف ❌";
-
-    deleteBtn.onclick = function(event) {
-        event.stopPropagation();
-
-        li.remove();
-        saveTasks();
-        updateTaskStats();
-    };
-
-    li.appendChild(deleteBtn);
-
-    document.getElementById("taskList").appendChild(li);
 }
 
 // إضافة مهمة
 function addTask() {
-    let input = document.getElementById("taskInput");
-    let task = input.value.trim();
+let input = document.getElementById('taskInput');
+let task = input.value.trim();
 
-    let priority = document.getElementById("taskPriority").value;
+```
+let priority = document.getElementById('taskPriority').value;
 
-    if (task === "") {
-        alert("اكتب المهمة الأول!");
-        return;
-    }
+if (task === '') {
+    alert('اكتب المهمة الأول!');
+    return;
+}
 
-    createTask(task, false, null, priority);
+createTask(task, false, null, priority);
 
-    saveTasks();
-    updateTaskStats();
+saveTasks();
+updateTaskStats();
 
-    input.value = "";
+input.value = '';
+```
+
 }
 
 // إضافة المهمة بزر Enter
-document.getElementById("taskInput").addEventListener(
-    "keydown",
-    function(event) {
-        if (event.key === "Enter") {
-            addTask();
-        }
-    }
+document.getElementById('taskInput').addEventListener(
+'keydown',
+function(event) {
+if (event.key === 'Enter') {
+addTask();
+}
+}
 );
 
 // تحميل المهام المحفوظة
 function loadTasks() {
-    let tasks = JSON.parse(localStorage.getItem("myTasks")) || [];
+let tasks = JSON.parse(localStorage.getItem('myTasks')) || [];
 
-    tasks.forEach(function(task) {
-        createTask(
-            task.text,
-            task.completed,
-            task.createdAt,
-            task.priority || "medium"
-        );
-    });
+```
+tasks.forEach(function(task) {
+    createTask(
+        task.text,
+        task.completed,
+        task.createdAt,
+        task.priority || 'medium'
+    );
+});
 
-    updateTaskStats();
+updateTaskStats();
+```
+
 }
 
 // مسح كل المهام
 function clearTasks() {
-    let confirmDelete = confirm(
-        "متأكد إنك عايز تمسح كل المهام؟"
-    );
+let confirmDelete = confirm(
+'متأكد إنك عايز تمسح كل المهام؟'
+);
 
-    if (confirmDelete) {
-        document.getElementById("taskList").innerHTML = "";
-        localStorage.removeItem("myTasks");
-        updateTaskStats();
-    }
+```
+if (confirmDelete) {
+    document.getElementById('taskList').innerHTML = '';
+    localStorage.removeItem('myTasks');
+    updateTaskStats();
+}
+```
+
 }
 
 // مسح المهام المكتملة فقط
 function clearCompletedTasks() {
-    let confirmDelete = confirm(
-        "متأكد إنك عايز تمسح المهام المكتملة؟"
-    );
+let confirmDelete = confirm(
+'متأكد إنك عايز تمسح المهام المكتملة؟'
+);
 
-    if (confirmDelete) {
-        document.querySelectorAll(
-            "#taskList li.completed"
-        ).forEach(function(task) {
-            task.remove();
-        });
+```
+if (confirmDelete) {
+    document.querySelectorAll(
+        '#taskList li.completed'
+    ).forEach(function(task) {
+        task.remove();
+    });
 
-        saveTasks();
-        updateTaskStats();
-    }
+    saveTasks();
+    updateTaskStats();
+}
+```
+
 }
 
-// البحث والفلترة مع بعض
+// البحث والفلترة
 function applyTaskFilters() {
-    let searchValue = document.getElementById(
-        "searchTask"
-    ).value.toLowerCase();
+let searchValue = document.getElementById(
+'searchTask'
+).value.toLowerCase();
 
-    let filterValue = document.getElementById(
-        "taskFilter"
-    ).value;
+```
+let filterValue = document.getElementById(
+    'taskFilter'
+).value;
 
-    let priorityValue = document.getElementById(
-        "priorityFilter"
-    ).value;
+let priorityValue = document.getElementById(
+    'priorityFilter'
+).value;
 
-    document.querySelectorAll("#taskList li").forEach(
-        function(task) {
-            let taskName = task.firstChild.textContent.toLowerCase();
+document.querySelectorAll('#taskList li').forEach(
+    function(task) {
+        let taskName = task.firstChild.textContent.toLowerCase();
 
-            let isCompleted = task.classList.contains("completed");
+        let isCompleted = task.classList.contains('completed');
 
-            let taskPriority = task.dataset.priority || "medium";
+        let taskPriority = task.dataset.priority || 'medium';
 
-            let matchesSearch = taskName.includes(searchValue);
+        let matchesSearch = taskName.includes(searchValue);
 
-            let matchesFilter =
-                filterValue === "all" ||
-                (filterValue === "completed" && isCompleted) ||
-                (filterValue === "uncompleted" && !isCompleted);
+        let matchesFilter =
+            filterValue === 'all' ||
+            (filterValue === 'completed' && isCompleted) ||
+            (filterValue === 'uncompleted' && !isCompleted);
 
-            let matchesPriority =
-                priorityValue === "all" ||
-                taskPriority === priorityValue;
+        let matchesPriority =
+            priorityValue === 'all' ||
+            taskPriority === priorityValue;
 
-            task.style.display =
-                matchesSearch && matchesFilter && matchesPriority
-                ? ""
-                : "none";
-        }
-    );
+        task.style.display =
+            matchesSearch && matchesFilter && matchesPriority
+            ? ''
+            : 'none';
+    }
+);
+```
+
 }
 
-// البحث
 function searchTasks() {
-    applyTaskFilters();
+applyTaskFilters();
 }
 
-// الفلترة
 function filterTasks() {
-    applyTaskFilters();
+applyTaskFilters();
 }
 
-// مسح البحث
 function clearSearch() {
-    document.getElementById("searchTask").value = "";
-    applyTaskFilters();
+document.getElementById('searchTask').value = '';
+applyTaskFilters();
 }
 
-// عرض كل المهام
 function showAllTasks() {
-    document.getElementById("searchTask").value = "";
-    document.getElementById("taskFilter").value = "all";
-    document.getElementById("priorityFilter").value = "all";
+document.getElementById('searchTask').value = '';
+document.getElementById('taskFilter').value = 'all';
+document.getElementById('priorityFilter').value = 'all';
 
-    applyTaskFilters();
+```
+applyTaskFilters();
+```
+
 }
 
 // ترتيب المهام حسب التاريخ
 function sortTasks() {
-    let taskList = document.getElementById("taskList");
-    let tasks = Array.from(taskList.children);
+let taskList = document.getElementById('taskList');
+let tasks = Array.from(taskList.children);
 
-    let sortValue = document.getElementById("taskSort").value;
+```
+let sortValue = document.getElementById('taskSort').value;
 
-    tasks.sort(function(a, b) {
-        let dateA = new Date(a.dataset.createdAt);
-        let dateB = new Date(b.dataset.createdAt);
+tasks.sort(function(a, b) {
+    let dateA = new Date(a.dataset.createdAt);
+    let dateB = new Date(b.dataset.createdAt);
 
-        if (sortValue === "newest") {
-            return dateB - dateA;
-        } else {
-            return dateA - dateB;
-        }
-    });
-
-    tasks.forEach(function(task) {
-        taskList.appendChild(task);
-    });
-}
-
-// تشغيل تحميل المهام
-loadTasks();
-const backToTop = document.getElementById("backToTop");
-
-backToTop.style.display = "none";
-
-window.addEventListener("scroll", function () {
-    if (window.scrollY > 300) {
-        backToTop.style.display = "block";
+    if (sortValue === 'newest') {
+        return dateB - dateA;
     } else {
-        backToTop.style.display = "none";
+        return dateA - dateB;
     }
-});// إظهار زر تسجيل الخروج عند تسجيل الدخول
-const logoutBtn = document.getElementById("logoutBtn");
+});
 
-if (localStorage.getItem("isLoggedIn") === "true" && logoutBtn) {
-    logoutBtn.style.display = "inline-block";
+tasks.forEach(function(task) {
+    taskList.appendChild(task);
+});
+```
+
 }
 
-// تسجيل الخروج
-function logout() {
-    localStorage.removeItem("isLoggedIn");
-    window.location.href = "login.html";
+// زر العودة للأعلى
+const backToTop = document.getElementById('backToTop');
+
+backToTop.style.display = 'none';
+
+window.addEventListener('scroll', function() {
+if (window.scrollY > 300) {
+backToTop.style.display = 'block';
+} else {
+backToTop.style.display = 'none';
 }
-// حذف الحساب
-function deleteAccount() {
-    let confirmDelete = confirm("هل أنت متأكد من حذف حسابك نهائيًا؟");
+});
 
-    if (confirmDelete) {
-        localStorage.removeItem("registeredUsername");
-        localStorage.removeItem("registeredPassword");
-        localStorage.removeItem("isLoggedIn");
+// إتاحة الدوال لأزرار HTML
+Object.assign(window, {
+logout,
+deleteAccount,
+sayHello,
+changeTheme,
+changeName,
+resetName,
+changeColor,
+changeBackground,
+resetSettings,
+addTask,
+clearTasks,
+clearCompletedTasks,
+searchTasks,
+filterTasks,
+applyTaskFilters,
+clearSearch,
+showAllTasks,
+sortTasks
+});
 
-        alert("تم حذف الحساب بنجاح 🗑️");
+// تشغيل الموقع بعد التأكد من تسجيل الدخول
+const isLoggedIn = await checkLogin();
 
-        window.location.href = "register.html";
-    }
+if (isLoggedIn) {
+document.getElementById('logoutBtn').style.display = 'inline-block';
+document.getElementById('deleteAccountBtn').style.display = 'inline-block';
+loadTasks();
 }
