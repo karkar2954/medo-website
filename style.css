@@ -639,3 +639,116 @@ body.light section label {
     color: #6b7280 !important;
     opacity: 1 !important;
 }
+/* ===== Medo Dark Purple Theme ===== */
+
+:root {
+    --medo-navy: #0b1020;
+    --medo-card: #151d35;
+    --medo-purple: #9333ea;
+    --medo-purple-light: #a855f7;
+    --medo-text: #f8fafc;
+    --medo-muted: #cbd5e1;
+}
+
+body {
+    background: var(--medo-navy) !important;
+    color: var(--medo-text);
+}
+
+.navbar,
+.platform-hero,
+.study-intro,
+.study-planner,
+.weekly-planner,
+.dashboard,
+.achievements-section,
+.profile-section,
+.todo,
+.clock,
+.visits {
+    background: var(--medo-card) !important;
+    color: var(--medo-text) !important;
+    border-color: #9333ea !important;
+}
+
+.navbar h2,
+.platform-hero h1 span,
+.study-planner h2,
+.weekly-planner h2,
+.dashboard h2,
+.achievements-section h2,
+.profile-section h2 {
+    color: var(--medo-purple-light) !important;
+}
+
+.navbar a {
+    color: var(--medo-text) !important;
+}
+
+.navbar a:hover {
+    color: var(--medo-purple-light) !important;
+}
+
+button,
+.hero-primary,
+.pro-button {
+    background: var(--medo-purple) !important;
+    color: white !important;
+    border-color: var(--medo-purple) !important;
+}
+
+button:hover,
+.hero-primary:hover,
+.pro-button:hover {
+    background: #7e22ce !important;
+}
+
+.study-points article,
+.dashboard-card,
+.achievement-card,
+.project-card,
+.gallery-item,
+.profile-info {
+    background: #202944 !important;
+    color: var(--medo-text) !important;
+    border-color: #6b21a8 !important;
+}
+
+section p,
+section li,
+section label,
+.study-storage-note {
+    color: var(--medo-muted);
+}
+
+input,
+textarea,
+select {
+    background: #ffffff !important;
+    color: #111827 !important;
+    border: 1px solid #9333ea !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #6b7280 !important;
+    opacity: 1 !important;
+}
+
+.medo-pro-section {
+    background: var(--medo-card) !important;
+    color: var(--medo-text) !important;
+}
+
+.medo-pro-section .pro-card {
+    background: #202944 !important;
+    color: var(--medo-text) !important;
+}
+
+.medo-pro-section .pro-card h3,
+.medo-pro-section .pro-card li,
+.medo-pro-section .medo-pro-heading h2,
+.medo-pro-section .medo-pro-heading p,
+.medo-pro-section .pro-note {
+    color: var(--medo-text) !important;
+}
