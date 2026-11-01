@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medo Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111827;
+            color: white;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+        h1 { color: #38bdf8; }
+        .box {
+            background: #1f2937;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            border: 0;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .request {
+            background: #374151;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 12px 0;
+            overflow-wrap: anywhere;
+        }
+        #message { color: #facc15; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💎 لوحة إدارة Medo</h1>
+
+        <div class="box">
+            <h2>طلبات الاشتراك</h2>
+            <p id="message">جاري التحقق من صلاحياتك...</p>
+            <button id="refreshBtn" hidden>تحديث الطلبات</button>
+            <div id="requests"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { supabase } from "./script.js";
+
+        const message = document.getElementById("message");
+        const requests = document.getElementById("requests");
+        const refreshBtn = document.getElementById("refreshBtn");
+
+        async function loadRequests() {
+            message.textContent = "جاري تحميل الطلبات...";
+            requests.replaceChildren();
+
+            const { data: sessionData, error: sessionError } =
+                await supabase.auth.getSession();
+
+            if (sessionError || !sessionData.session) {
+                message.textContent = "سجّل الدخول أولًا.";
+                refreshBtn.hidden = true;
+                return;
+            }
+
+            const { data: isAdmin, error: adminError } =
+                await supabase.rpc("is_site_admin");
+
+            if (adminError || isAdmin !== true) {
+                message.textContent = "ليس لديك صلاحية دخول لوحة الإدارة.";
+                refreshBtn.hidden = true;
+                return;
+            }
+
+            refreshBtn.hidden = false;
+
+            const { data, error } = await supabase
+                .from("pro_payment_requests")
+                .select("id, user_id, amount, payment_method, transaction_reference, status, created_at")
+                .order("created_at", { ascending: false });
+
+            if (error) {
+                message.textContent = "تعذر تحميل الطلبات. راجع صلاحيات قاعدة البيانات.";
+                console.error(error);
+                return;
+            }
+
+            if (!data || data.length === 0) {
+                message.textContent = "لا توجد طلبات اشتراك حاليًا.";
+                return;
+            }
+
+            message.textContent = `عدد الطلبات: ${data.length}`;
+
+            data.forEach((item) => {
+                const card = document.createElement("div");
+                card.className = "request";
+
+                const details = [
+                    `المبلغ: ${item.amount} جنيه`,
+                    `طريقة الدفع: ${item.payment_method}`,
+                    `رقم العملية: ${item.transaction_reference}`,
+                    `الحالة: ${item.status}`,
+                    `تاريخ الطلب: ${new Date(item.created_at).toLocaleString("ar-EG")}`,
+                    `معرّف الطلب: ${item.id}`,
+                    `معرّف المستخدم: ${item.user_id}`
+                ];
+
+                details.forEach((line) => {
+                    const p = document.createElement("p");
+                    p.textContent = line;
+                    card.appendChild(p);
+                });
+
+                requests.appendChild(card);
+            });
+        }
+
+        refreshBtn.addEventListener("click", loadRequests);
+        loadRequests();
+    </script>
+</body>
+</html>
