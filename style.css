@@ -507,3 +507,24 @@ body{padding:22px;max-width:1400px;margin:auto}
 .study-intro{max-width:1050px;margin:35px auto;padding:25px 12px}.study-intro>p{color:#cbd5e1}.study-points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px}.study-points article{background:rgba(128,128,128,.12);border:1px solid rgba(148,163,184,.22);border-radius:16px;padding:18px}.study-points article>span{font-size:28px}.study-points h3{margin:8px 0;color:#7dd3fc}.study-points p{font-size:16px;margin:0;color:#d1d5db}
 #todo-area,.dashboard,.achievements-section,.profile-section{max-width:1050px;margin:28px auto}.colors,.backgrounds{margin:12px auto;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
 @media(max-width:700px){body{padding:12px}.navbar{position:static;justify-content:center}.nav-links{width:100%}.platform-hero{padding:32px 16px}.platform-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr))}.study-points{grid-template-columns:1fr}.platform-hero>p{font-size:16px}}
+
+
+/* Medo Pro landing section */
+.medo-pro-section{max-width:1100px;margin:55px auto;padding:34px 22px;border-radius:24px;background:var(--card-bg,#fff);color:var(--text-color,inherit);box-sizing:border-box}
+.medo-pro-heading{text-align:center;max-width:700px;margin:0 auto 28px}
+.pro-kicker{display:inline-block;color:var(--primary-color,#2563eb);font-weight:700;margin-bottom:8px}
+.medo-pro-heading h2{font-size:2rem;margin:8px 0}
+.medo-pro-heading p,.pro-note{line-height:1.9;opacity:.82}
+.pro-status{display:inline-block;margin-top:8px;padding:7px 13px;border-radius:30px;background:#fff4d6;color:#805600;font-size:.9rem;font-weight:700}
+.pro-plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.pro-card{border:1px solid var(--border-color,#ddd);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:12px}
+.pro-card-featured{border:2px solid var(--primary-color,#2563eb);background:color-mix(in srgb,var(--primary-color,#2563eb) 6%,transparent)}
+.plan-label{font-size:.9rem;font-weight:700;opacity:.75}
+.pro-card h3{font-size:1.45rem;margin:0}
+.plan-price{font-weight:700;font-size:1.15rem;margin:0}
+.pro-card ul{padding-right:20px;line-height:2.1;flex:1}
+.pro-button{display:block;text-align:center;border:0;border-radius:12px;padding:13px 16px;background:var(--primary-color,#2563eb);color:#fff;text-decoration:none;font:inherit;font-weight:700}
+.pro-button-light{background:transparent;color:var(--primary-color,#2563eb);border:1px solid var(--primary-color,#2563eb)}
+.pro-button:disabled{opacity:.65;cursor:not-allowed}
+.pro-note{text-align:center;margin:22px auto 0;max-width:800px;font-size:.9rem}
+@media(max-width:600px){.medo-pro-section{margin:30px 12px;padding:25px 15px}.medo-pro-heading h2{font-size:1.65rem}}
