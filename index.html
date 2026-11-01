@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Medo | موقعي الشخصي</title>
+    <title>Medo | منصتك لتنظيم الدراسة والحياة</title>
 
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="features.css">
+    <link rel="icon" type="image/png" href="logo.png.png">
 </head>
 
 <body>
@@ -19,19 +20,42 @@
 
         <div class="nav-links">
             <a href="#home">الرئيسية</a>
-            <a href="#skills">مهاراتي</a>
-            <a href="#projects">مشاريعي</a>
-            <a href="#gallery">معرض الألعاب</a>
-            <a href="#hobbies">هواياتي</a>
-            <a href="#profile">ملفي الشخصي</a>
-            <a href="#contact">تواصل معايا</a>
-            <a href="login.html">🔐 تسجيل الدخول</a>
+            <a href="#study-tools">أدوات الدراسة</a>
+            <a href="#todo-area">تنظيم المهام</a>
+            <a href="#medo-tools">التركيز والتقويم</a>
+            <a href="#profile">حسابي</a>
+            <a href="login.html">تسجيل الدخول</a>
         </div>
 
         <button id="themeBtn" onclick="changeTheme()">
             ☀️ الوضع النهاري
         </button>
     </nav>
+
+    <header class="platform-hero" id="platform-home">
+        <span class="hero-kicker">مساحتك اليومية للدراسة والإنجاز</span>
+        <h1>أهلاً بيك في <span>Medo</span> 👋</h1>
+        <p>نظّم مذاكرتك، رتّب مهامك، تابع تقدمك، وخلي يومك أوضح وأسهل.</p>
+        <div class="hero-actions">
+            <a href="#todo-area" class="hero-primary">ابدأ تنظيم يومك</a>
+            <a href="#study-tools" class="hero-secondary">اكتشف الأدوات</a>
+        </div>
+        <div class="platform-shortcuts">
+            <a href="#todo-area"><b>📝</b><strong>المهام</strong><small>رتّب أولوياتك</small></a>
+            <a href="#medo-tools"><b>⏱️</b><strong>التركيز</strong><small>ذاكر من غير تشتيت</small></a>
+            <a href="#medo-tools"><b>📅</b><strong>المواعيد</strong><small>تابع تسليماتك</small></a>
+            <a href="#dashboard"><b>🏆</b><strong>إنجازك</strong><small>شوف تقدمك</small></a>
+        </div>
+    </header>
+    <section class="study-intro" id="study-tools">
+        <h2>كل يوم بخطوة صغيرة 📚</h2>
+        <p>ابدأ بتحديد اللي محتاج تخلصه، وبعدها استخدم أدوات Medo لمتابعة تقدمك.</p>
+        <div class="study-points">
+            <article><span>🎯</span><h3>حدد هدفك</h3><p>اكتب أهم حاجة عايز تنجزها النهارده.</p></article>
+            <article><span>🧠</span><h3>ركز في وقتك</h3><p>قسّم وقتك لجلسات تركيز وراحة.</p></article>
+            <article><span>📈</span><h3>تابع تقدمك</h3><p>راجع المهام المكتملة وخطوتك الجاية.</p></article>
+        </div>
+    </section>
 
     <!-- أزرار الحساب -->
     <button id="logoutBtn" onclick="logout()" style="display:none;">
@@ -174,7 +198,7 @@
     <!-- الرئيسية -->
     <div class="card" id="home">
 
-        <h1 id="welcome">أهلاً بيكم، أنا Medo 👋</h1>
+        <h1 id="welcome">عن Medo 👋</h1>
 
         <img
             src="medo.png"
@@ -188,15 +212,14 @@
             تغيير الاسم ✏️
         </button>
 
-        <h2>مطور ويب في المستقبل</h2>
+        <h2>منصة بتكبر معاك</h2>
 
         <button onclick="resetName()">
             مسح الاسم
         </button>
 
         <p>
-            أنا بتعلم البرمجة من الصفر،
-            وببدأ رحلتي في تصميم وتطوير المواقع.
+            Medo مشروع هدفه يساعد الطلاب والشباب ينظموا الدراسة والمهام والحياة اليومية في مكان واحد.
         </p>
 
         <a
@@ -342,7 +365,7 @@
     </div>
 
     <!-- قائمة المهام -->
-    <div class="todo">
+    <div class="todo" id="todo-area">
 
         <h2>قائمة مهامي 📝</h2>
 

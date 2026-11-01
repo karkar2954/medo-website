@@ -493,3 +493,17 @@ body.light .achievement-card {
     background: #e5e7eb;
     color: #111827;
 }
+
+/* Medo student platform refresh */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{padding:22px;max-width:1400px;margin:auto}
+.navbar{position:sticky;top:10px;z-index:20;gap:16px;flex-wrap:wrap;backdrop-filter:blur(12px)}
+.navbar h2{margin:0;color:#38bdf8}.nav-links{display:flex;gap:9px;flex-wrap:wrap;justify-content:center}.nav-links a{color:#e5e7eb;text-decoration:none;padding:8px 10px;border-radius:9px;font-size:15px}.nav-links a:hover{background:#374151}
+.platform-hero{margin:28px auto 22px;padding:48px 24px 28px;max-width:1100px;border:1px solid rgba(56,189,248,.25);border-radius:24px;background:radial-gradient(circle at 15% 10%,rgba(56,189,248,.2),transparent 35%),linear-gradient(135deg,#172554,#111827 70%);text-align:center}
+.hero-kicker{display:inline-block;color:#7dd3fc;font-size:14px;font-weight:bold}.platform-hero h1{font-size:clamp(32px,5vw,54px);margin:12px 0}.platform-hero h1 span{color:#38bdf8}.platform-hero>p{max-width:650px;margin:0 auto 22px;color:#d1d5db;font-size:18px}
+.hero-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.hero-actions a{padding:12px 20px;border-radius:11px;text-decoration:none;font-weight:bold}.hero-primary{background:#0284c7;color:white}.hero-secondary{border:1px solid #64748b;color:#e5e7eb}
+.platform-shortcuts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:32px auto 0;max-width:850px}.platform-shortcuts a{display:flex;flex-direction:column;gap:5px;padding:15px 8px;border-radius:14px;background:rgba(255,255,255,.08);color:white;text-decoration:none}.platform-shortcuts b{font-size:26px}.platform-shortcuts small{color:#cbd5e1}
+.study-intro{max-width:1050px;margin:35px auto;padding:25px 12px}.study-intro>p{color:#cbd5e1}.study-points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px}.study-points article{background:rgba(128,128,128,.12);border:1px solid rgba(148,163,184,.22);border-radius:16px;padding:18px}.study-points article>span{font-size:28px}.study-points h3{margin:8px 0;color:#7dd3fc}.study-points p{font-size:16px;margin:0;color:#d1d5db}
+#todo-area,.dashboard,.achievements-section,.profile-section{max-width:1050px;margin:28px auto}.colors,.backgrounds{margin:12px auto;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+@media(max-width:700px){body{padding:12px}.navbar{position:static;justify-content:center}.nav-links{width:100%}.platform-hero{padding:32px 16px}.platform-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr))}.study-points{grid-template-columns:1fr}.platform-hero>p{font-size:16px}}
