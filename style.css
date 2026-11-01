@@ -540,3 +540,70 @@ body{padding:22px;max-width:1400px;margin:auto}
 .pro-account-status strong{display:block;font-size:1.05rem;margin-bottom:6px;color:var(--text-color, #172033)}
 .pro-account-status p{margin:0;color:var(--text-color, #344054)}
 .pro-account-status .pro-expiry{margin-top:7px;font-size:.92rem;opacity:.9}
+/* تحسين وضوح الكتابة في موقع Medo */
+body {
+    color: #f9fafb;
+}
+
+section p,
+section li,
+section label,
+section span {
+    opacity: 1;
+}
+
+/* النصوص الثانوية في الخلفيات الداكنة */
+.study-intro > p,
+.study-points p,
+.platform-hero > p {
+    color: #e5e7eb;
+    opacity: 1;
+}
+
+/* وضوح النصوص داخل البطاقات الداكنة */
+.todo,
+.clock,
+.visits,
+.about,
+.goals,
+.profile-info,
+.achievement-card {
+    color: #f9fafb;
+}
+
+.todo p,
+.clock p,
+.visits p,
+.about p,
+.goals p,
+.profile-info p,
+.achievement-card p {
+    color: #f3f4f6;
+    opacity: 1;
+}
+
+/* وضوح الكتابة داخل خانات الإدخال */
+input,
+textarea,
+select {
+    color: #111827;
+    background-color: #ffffff;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #6b7280;
+    opacity: 1;
+}
+
+/* الحفاظ على وضوح الوضع النهاري */
+body.light {
+    color: #111827;
+}
+
+body.light section p,
+body.light section li,
+body.light section label {
+    color: #1f2937;
+    opacity: 1;
+}
