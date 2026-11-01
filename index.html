@@ -20,7 +20,7 @@
 
         <div class="nav-links">
             <a href="#home">الرئيسية</a>
-            <a href="#study-tools">أدوات الدراسة</a>
+            <a href="#study-planner">أدوات الدراسة</a>
             <a href="#todo-area">تنظيم المهام</a>
             <a href="#medo-tools">التركيز والتقويم</a>
             <a href="#profile">حسابي</a>
@@ -55,6 +55,24 @@
             <article><span>🧠</span><h3>ركز في وقتك</h3><p>قسّم وقتك لجلسات تركيز وراحة.</p></article>
             <article><span>📈</span><h3>تابع تقدمك</h3><p>راجع المهام المكتملة وخطوتك الجاية.</p></article>
         </div>
+    </section>
+
+    <section class="study-planner" id="study-planner">
+        <div class="planner-heading">
+            <div><span class="planner-kicker">خطتك الدراسية</span><h2>📚 خطّط مذاكرتك</h2><p>سجّل موادك ومحاضراتك وامتحاناتك في مكان واحد.</p></div>
+            <div class="planner-count" id="studyCount">0 موعد</div>
+        </div>
+        <form id="studyForm" class="study-form">
+            <label>اسم المادة<input id="studySubject" maxlength="60" placeholder="مثال: مبادئ الإدارة" required></label>
+            <label>نوع الموعد<select id="studyType"><option value="مذاكرة">📖 مذاكرة</option><option value="محاضرة">🎓 محاضرة</option><option value="امتحان">📝 امتحان</option><option value="تسليم">📌 تسليم</option></select></label>
+            <label>التاريخ<input id="studyDate" type="date" required></label>
+            <label>الوقت<input id="studyTime" type="time"></label>
+            <label class="study-notes">ملاحظات (اختياري)<input id="studyNotes" maxlength="160" placeholder="الفصل المطلوب أو مكان المحاضرة..."></label>
+            <button type="submit">إضافة للخطة ＋</button>
+        </form>
+        <div class="study-list-head"><h3>مواعيدك القادمة</h3><select id="studyFilter" aria-label="تصفية المواعيد"><option value="الكل">كل المواعيد</option><option>مذاكرة</option><option>محاضرة</option><option>امتحان</option><option>تسليم</option></select></div>
+        <div id="studyEvents" class="study-events" aria-live="polite"><p class="study-empty">لسه مفيش مواعيد. أضف أول مادة أو موعد دراسي 👆</p></div>
+        <small class="study-storage-note">ملاحظة: الخطة محفوظة على نفس المتصفح والجهاز حاليًا.</small>
     </section>
 
     <!-- أزرار الحساب -->
@@ -500,6 +518,7 @@
 
     <!-- ملف JavaScript -->
     <script type="module" src="script.js"></script>
+    <script src="study-tools.js" defer></script>
     <script type="module" src="features.js"></script>
 
 </body>
