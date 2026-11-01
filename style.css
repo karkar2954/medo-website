@@ -607,3 +607,21 @@ body.light section label {
     color: #1f2937;
     opacity: 1;
 }
+/* إصلاح لون الكتابة في خطط المذاكرة */
+#studyPlan input,
+#studyPlan textarea,
+#studyPlan select,
+.study-plan input,
+.study-plan textarea,
+.study-plan select {
+    color: #111827 !important;
+    background-color: #ffffff !important;
+}
+
+#studyPlan input::placeholder,
+#studyPlan textarea::placeholder,
+.study-plan input::placeholder,
+.study-plan textarea::placeholder {
+    color: #6b7280 !important;
+    opacity: 1;
+}
