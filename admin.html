@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medo Admin</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,25 +12,35 @@
             color: white;
             padding: 20px;
         }
+
         .container {
             max-width: 900px;
             margin: auto;
         }
+
         h1 { color: #38bdf8; }
+
         .box {
             background: #1f2937;
             padding: 20px;
             border-radius: 12px;
             margin-top: 20px;
         }
+
         button {
-            background: #2563eb;
             color: white;
             border: 0;
-            padding: 10px 18px;
+            padding: 11px 18px;
             border-radius: 8px;
             cursor: pointer;
+            margin: 5px;
         }
+
+        button:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
         .request {
             background: #374151;
             padding: 15px;
@@ -37,96 +48,155 @@
             margin: 12px 0;
             overflow-wrap: anywhere;
         }
+
+        .approve { background: #16a34a; }
+        .reject { background: #dc2626; }
+        .refresh { background: #2563eb; }
+
         #message { color: #facc15; }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>💎 لوحة إدارة Medo</h1>
+<div class="container">
+    <h1>💎 لوحة إدارة Medo</h1>
 
-        <div class="box">
-            <h2>طلبات الاشتراك</h2>
-            <p id="message">جاري التحقق من صلاحياتك...</p>
-            <button id="refreshBtn" hidden>تحديث الطلبات</button>
-            <div id="requests"></div>
-        </div>
+    <div class="box">
+        <h2>طلبات الاشتراك</h2>
+
+        <p id="message">جاري التحقق من صلاحياتك...</p>
+
+        <button id="refreshBtn" class="refresh" hidden>
+            تحديث الطلبات
+        </button>
+
+        <div id="requests"></div>
     </div>
+</div>
 
-    <script type="module">
-        import { supabase } from "./script.js";
+<script type="module">
+import { supabase } from "./script.js";
 
-        const message = document.getElementById("message");
-        const requests = document.getElementById("requests");
-        const refreshBtn = document.getElementById("refreshBtn");
+const message = document.getElementById("message");
+const requests = document.getElementById("requests");
+const refreshBtn = document.getElementById("refreshBtn");
 
-        async function loadRequests() {
-            message.textContent = "جاري تحميل الطلبات...";
-            requests.replaceChildren();
+async function loadRequests() {
+    message.textContent = "جاري تحميل الطلبات...";
+    requests.replaceChildren();
 
-            const { data: sessionData, error: sessionError } =
-                await supabase.auth.getSession();
+    const { data: sessionData, error: sessionError } =
+        await supabase.auth.getSession();
 
-            if (sessionError || !sessionData.session) {
-                message.textContent = "سجّل الدخول أولًا.";
-                refreshBtn.hidden = true;
-                return;
-            }
+    if (sessionError || !sessionData.session) {
+        message.textContent = "سجّل الدخول أولًا.";
+        refreshBtn.hidden = true;
+        return;
+    }
 
-            const { data: isAdmin, error: adminError } =
-                await supabase.rpc("is_site_admin");
+    const { data: isAdmin, error: adminError } =
+        await supabase.rpc("is_site_admin");
 
-            if (adminError || isAdmin !== true) {
-                message.textContent = "ليس لديك صلاحية دخول لوحة الإدارة.";
-                refreshBtn.hidden = true;
-                return;
-            }
+    if (adminError || isAdmin !== true) {
+        message.textContent = "ليس لديك صلاحية دخول لوحة الإدارة.";
+        refreshBtn.hidden = true;
+        return;
+    }
 
-            refreshBtn.hidden = false;
+    refreshBtn.hidden = false;
 
-            const { data, error } = await supabase
-                .from("pro_payment_requests")
-                .select("id, user_id, amount, payment_method, transaction_reference, status, created_at")
-                .order("created_at", { ascending: false });
+    const { data, error } = await supabase
+        .from("pro_payment_requests")
+        .select("id, user_id, amount, payment_method, transaction_reference, status, created_at")
+        .order("created_at", { ascending: false });
 
-            if (error) {
-                message.textContent = "تعذر تحميل الطلبات. راجع صلاحيات قاعدة البيانات.";
-                console.error(error);
-                return;
-            }
+    if (error) {
+        message.textContent = "تعذر تحميل الطلبات.";
+        console.error(error);
+        return;
+    }
 
-            if (!data || data.length === 0) {
-                message.textContent = "لا توجد طلبات اشتراك حاليًا.";
-                return;
-            }
+    if (!data || data.length === 0) {
+        message.textContent = "لا توجد طلبات اشتراك حاليًا.";
+        return;
+    }
 
-            message.textContent = `عدد الطلبات: ${data.length}`;
+    message.textContent = `عدد الطلبات: ${data.length}`;
 
-            data.forEach((item) => {
-                const card = document.createElement("div");
-                card.className = "request";
+    data.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "request";
 
-                const details = [
-                    `المبلغ: ${item.amount} جنيه`,
-                    `طريقة الدفع: ${item.payment_method}`,
-                    `رقم العملية: ${item.transaction_reference}`,
-                    `الحالة: ${item.status}`,
-                    `تاريخ الطلب: ${new Date(item.created_at).toLocaleString("ar-EG")}`,
-                    `معرّف الطلب: ${item.id}`,
-                    `معرّف المستخدم: ${item.user_id}`
-                ];
+        const details = [
+            `المبلغ: ${item.amount} جنيه`,
+            `طريقة الدفع: ${item.payment_method}`,
+            `رقم العملية: ${item.transaction_reference}`,
+            `الحالة: ${item.status}`,
+            `تاريخ الطلب: ${new Date(item.created_at).toLocaleString("ar-EG")}`,
+            `معرّف الطلب: ${item.id}`,
+            `معرّف المستخدم: ${item.user_id}`
+        ];
 
-                details.forEach((line) => {
-                    const p = document.createElement("p");
-                    p.textContent = line;
-                    card.appendChild(p);
-                });
+        details.forEach(line => {
+            const p = document.createElement("p");
+            p.textContent = line;
+            card.appendChild(p);
+        });
 
-                requests.appendChild(card);
-            });
+        if (item.status === "pending") {
+            const approveBtn = document.createElement("button");
+            approveBtn.className = "approve";
+            approveBtn.textContent = "موافقة وتفعيل 30 يومًا";
+
+            const rejectBtn = document.createElement("button");
+            rejectBtn.className = "reject";
+            rejectBtn.textContent = "رفض الطلب";
+
+            approveBtn.addEventListener("click", () =>
+                reviewRequest(item.id, "approved", approveBtn, rejectBtn)
+            );
+
+            rejectBtn.addEventListener("click", () =>
+                reviewRequest(item.id, "rejected", approveBtn, rejectBtn)
+            );
+
+            card.append(approveBtn, rejectBtn);
         }
 
-        refreshBtn.addEventListener("click", loadRequests);
-        loadRequests();
-    </script>
+        requests.appendChild(card);
+    });
+}
+
+async function reviewRequest(id, decision, approveBtn, rejectBtn) {
+    const action = decision === "approved" ? "الموافقة" : "رفض الطلب";
+
+    if (!confirm(`هل أنت متأكد من ${action}؟`)) return;
+
+    approveBtn.disabled = true;
+    rejectBtn.disabled = true;
+
+    const { error } = await supabase.rpc(
+        "review_pro_payment_request",
+        {
+            p_request_id: id,
+            p_decision: decision
+        }
+    );
+
+    if (error) {
+        alert("تعذر تنفيذ العملية: " + error.message);
+        approveBtn.disabled = false;
+        rejectBtn.disabled = false;
+        return;
+    }
+
+    alert("تم تنفيذ العملية بنجاح.");
+    await loadRequests();
+}
+
+refreshBtn.addEventListener("click", loadRequests);
+
+loadRequests();
+</script>
 </body>
 </html>
