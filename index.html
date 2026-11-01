@@ -75,6 +75,19 @@
         <small class="study-storage-note">ملاحظة: الخطة محفوظة على نفس المتصفح والجهاز حاليًا.</small>
     </section>
 
+    <section class="weekly-planner" id="weekly-planner">
+      <div class="weekly-head"><div><span class="planner-kicker">نظّم وقتك</span><h2>🗓️ جدول مذاكرتي الأسبوعي</h2><p>وزّع جلسات المذاكرة على أيام الأسبوع وتابع جدولك بسهولة.</p></div></div>
+      <form id="weeklyForm" class="weekly-form">
+        <label>المادة<input id="weeklySubject" maxlength="60" placeholder="مثال: قواعد بيانات" required></label>
+        <label>اليوم<select id="weeklyDay"><option value="6">السبت</option><option value="0">الأحد</option><option value="1">الإثنين</option><option value="2">الثلاثاء</option><option value="3">الأربعاء</option><option value="4">الخميس</option><option value="5">الجمعة</option></select></label>
+        <label>وقت البداية<input id="weeklyTime" type="time" required></label>
+        <label>المدة<select id="weeklyDuration"><option value="30">30 دقيقة</option><option value="45">45 دقيقة</option><option value="60" selected>ساعة</option><option value="90">ساعة ونصف</option><option value="120">ساعتان</option><option value="180">3 ساعات</option></select></label>
+        <button type="submit">إضافة للجداول ＋</button>
+      </form>
+      <div id="weeklySchedule" class="weekly-days" aria-live="polite"></div>
+      <small class="study-storage-note">الجدول محفوظ على نفس المتصفح والجهاز.</small>
+    </section>
+
     <!-- أزرار الحساب -->
     <button id="logoutBtn" onclick="logout()" style="display:none;">
         تسجيل الخروج 🚪
@@ -519,6 +532,7 @@
     <!-- ملف JavaScript -->
     <script type="module" src="script.js"></script>
     <script src="study-tools.js" defer></script>
+    <script src="weekly-schedule.js" defer></script>
     <script type="module" src="features.js"></script>
 
 </body>
