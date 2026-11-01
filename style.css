@@ -625,3 +625,17 @@ body.light section label {
     color: #6b7280 !important;
     opacity: 1;
 }
+/* إصلاح الكتابة في خطة المذاكرة */
+#study-planner input,
+#study-planner select,
+#weekly-planner input,
+#weekly-planner select {
+    color: #111827 !important;
+    background-color: #ffffff !important;
+}
+
+#study-planner input::placeholder,
+#weekly-planner input::placeholder {
+    color: #6b7280 !important;
+    opacity: 1 !important;
+}
