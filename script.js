@@ -1,12 +1,4 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-// تسجيل الدخول
-// =========================npm/@supabase/supabase-js@2/+esm';
-
-// بيانات Supabase
-const SUPABASE_URL = 'https://yfktbkqerjvhgopnoowj.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_DnWZ6SjWDdwZ3eNWL3MQAA_cY4CJ0mI';
-
-export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+import { supabase } from "./supabase.js";
 
 // =======================
 
@@ -78,22 +70,18 @@ console.log("هل الجلسة موجودة؟", !!session, "هل التوكن م
 // =========================
 // المظهر والألوان
 // =========================
-
 function changeTheme() {
-document.body.classList.toggle('light-mode');
+    document.body.classList.toggle('light');
 
+    const button = document.getElementById('themeBtn');
 
-const button = document.getElementById('themeBtn');
-
-if (document.body.classList.contains('light-mode')) {
-    button.textContent = '🌙 الوضع الليلي';
-    localStorage.setItem('theme', 'light');
-} else {
-    button.textContent = '☀️ الوضع النهاري';
-    localStorage.setItem('theme', 'dark');
-}
-
-
+    if (document.body.classList.contains('light')) {
+        button.textContent = '🌙 الوضع الليلي';
+        localStorage.setItem('theme', 'light');
+    } else {
+        button.textContent = '☀️ الوضع النهاري';
+        localStorage.setItem('theme', 'dark');
+    }
 }
 
 function changeColor(color) {
@@ -117,43 +105,47 @@ location.reload();
 
 
 }
-
 function loadSettings() {
-const theme = localStorage.getItem('theme');
-const color = localStorage.getItem('mainColor');
-const background = localStorage.getItem('backgroundColor');
 
+    const theme = localStorage.getItem('theme');
+    const color = localStorage.getItem('mainColor');
+    const background = localStorage.getItem('backgroundColor');
 
-if (theme === 'light') {
-    document.body.classList.add('light-mode');
-    document.getElementById('themeBtn').textContent = '🌙 الوضع الليلي';
+    const themeBtn = document.getElementById('themeBtn');
+
+    if (theme === 'light') {
+        document.body.classList.add('light');
+        themeBtn.textContent = '🌙 الوضع الليلي';
+    } else {
+        document.body.classList.remove('light');
+        themeBtn.textContent = '☀️ الوضع النهاري';
+    }
+
+    if (color) {
+        document.documentElement.style.setProperty('--main-color', color);
+    }
+
+    if (background) {
+        document.body.style.background = background;
+    }
 }
-
-if (color) {
-    document.documentElement.style.setProperty('--main-color', color);
-}
-
-if (background) {
-    document.body.style.background = background;
-}
-
-
-}
-
 // =========================
 // اسم الزائر
 // =========================
-
 function changeName() {
-const name = prompt('اكتب اسمك:');
+    const name = prompt('اكتب اسمك:');
 
+    if (name && name.trim()) {
+        const newName = name.trim();
 
-if (name && name.trim()) {
-    localStorage.setItem('visitorName', name.trim());
-    updateGreeting();
-}
+        localStorage.setItem('visitorName', newName);
 
+        const greeting = document.getElementById('greeting');
 
+        if (greeting) {
+            greeting.textContent = "أهلاً بيك يا " + newName + " 👋";
+        }
+    }
 }
 
 function resetName() {
@@ -329,12 +321,28 @@ async function toggleTask(id, completed) {
         return;
     }
 
-    await loadTasks();
-await loadAchievements();
+    // تسجيل الإنجاز عند إكمال المهمة فقط
     if (!completed) {
-        console.log("وصلنا لاستدعاء الإشعار");
-    console.log("حالة الدالة:", typeof window.showNotification);
-window.showNotification("🎉 مبروك! كسبت 10 نقاط.");
+    const now = new Date();
+    const dateKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
+    const idsKey = 'medo-challenge-tasks-' + dateKey;
+    const countKey = 'medo-challenge-' + dateKey;
+
+    const ids = JSON.parse(localStorage.getItem(idsKey) || '[]');
+
+    if (!ids.includes(String(id))) {
+        ids.push(String(id));
+        localStorage.setItem(idsKey, JSON.stringify(ids));
+    }
+
+    localStorage.setItem(countKey, String(ids.length));
+}
+    await loadTasks();
+    await loadAchievements();
+
+    if (!completed) {
+        showNotification("🎉 مبروك! كسبت 10 نقاط.");
     } else {
         showNotification("تم إلغاء إكمال المهمة.");
     }
@@ -478,7 +486,7 @@ if (task.due_date) {
     const completeButton = document.createElement('button');
     completeButton.textContent = task.completed ? 'إلغاء الإكمال' : 'إكمال';
     completeButton.onclick = () => {
-    console.log("تم الضغط على زر إكمال المهمة");
+
     toggleTask(task.id, task.completed);
 };
 

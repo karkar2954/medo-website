@@ -66,11 +66,7 @@ function updateStats(){
  const goal=3, reward=count>=goal?'🏅 حصلت على شارة بطل اليوم!':'🎯 أكمل 3 مهام النهارده وافتح شارة بطل اليوم.';
  $('daily-challenge').textContent=reward;
  $('daily-progress').textContent=`إنجازاتك المسجلة النهارده: ${Math.min(count,goal)} / ${goal}`;
- const badges=JSON.parse(localStorage.getItem('medo-daily-badges')||'{}');
- if(count>=1) badges.first=true;
- if(count>=goal) badges.dailyChampion=true;
- localStorage.setItem('medo-daily-badges',JSON.stringify(badges));
-}
+ }
 let calDate=new Date(); calDate.setDate(1);
 function renderCalendar(){
  const y=calDate.getFullYear(),m=calDate.getMonth();
@@ -110,25 +106,3 @@ const taskList=$('taskList');if(taskList)observer.observe(taskList,{childList:tr
 setTimeout(()=>{updateStats();renderCalendar();},500);
 
 
-// Track newly completed tasks for the daily challenge on this browser.
-function installDailyChallengeTracker(){
- if(typeof window.toggleTask!=='function' || window.toggleTask.__medoTracked) return false;
- const original=window.toggleTask;
- const wrapped=function(id, completed, ...rest){
-   if(completed===true){
-     const key='medo-challenge-'+todayISO();
-     const n=Number(localStorage.getItem(key)||0);
-     localStorage.setItem(key,String(n+1));
-     updateStats();
-   }
-   return original.call(this,id,completed,...rest);
- };
- wrapped.__medoTracked=true;
- window.toggleTask=wrapped;
- return true;
-}
-let trackerAttempts=0;
-const trackerTimer=setInterval(()=>{
- trackerAttempts++;
- if(installDailyChallengeTracker() || trackerAttempts>=20) clearInterval(trackerTimer);
-},250);

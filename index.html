@@ -19,7 +19,7 @@
         <h2>Medo</h2>
 
         <div class="nav-links">
-            <a href="#home">الرئيسية</a>
+        <a href="#platform-home">الرئيسية</a>
             <a href="#study-planner">أدوات الدراسة</a>
             <a href="#todo-area">تنظيم المهام</a>
             <a href="#medo-tools">التركيز والتقويم</a>
@@ -73,7 +73,7 @@
         </form>
         <div class="study-list-head"><h3>مواعيدك القادمة</h3><select id="studyFilter" aria-label="تصفية المواعيد"><option value="الكل">كل المواعيد</option><option>مذاكرة</option><option>محاضرة</option><option>امتحان</option><option>تسليم</option></select></div>
         <div id="studyEvents" class="study-events" aria-live="polite"><p class="study-empty">لسه مفيش مواعيد. أضف أول مادة أو موعد دراسي 👆</p></div>
-        <small class="study-storage-note">ملاحظة: الخطة محفوظة على نفس المتصفح والجهاز حاليًا.</small>
+        <small class="study-storage-note">خطتك محفوظة على حسابك ويمكنك الوصول إليها بعد تسجيل الدخول.</small>
     </section>
 
     <section class="weekly-planner" id="weekly-planner">
@@ -86,7 +86,7 @@
         <button type="submit">إضافة للجداول ＋</button>
       </form>
       <div id="weeklySchedule" class="weekly-days" aria-live="polite"></div>
-      <small class="study-storage-note">الجدول محفوظ على نفس المتصفح والجهاز.</small>
+      <small class="study-storage-note">📌 جدولك الأسبوعي بيتحفظ على حسابك، وتقدر تفتحه من أي جهاز بعد تسجيل الدخول.</small>
     </section>
 
     <!-- أزرار الحساب -->
@@ -96,7 +96,7 @@
 
     <button id="deleteAccountBtn"
         onclick="deleteAccount()"
-        style="background:red; color:white;">
+       style="display:none; background:red; color:white;"></button>
         حذف الحساب 🗑️
     </button>
 <section class="dashboard" id="dashboard">
@@ -522,87 +522,91 @@
 
     </div>
 
-    <!-- Medo Pro: صفحة تعريفية فقط، الاشتراكات والدفع غير مفعّلين بعد -->
+    
     <section class="medo-pro-section" id="medo-pro">
-        <div class="medo-pro-heading">
-            <span class="pro-kicker">خطوتك التالية مع Medo</span>
-            <h2>💎 Medo Pro</h2>
-            <p>خطة شهرية اختيارية بمميزات إضافية تساعدك تذاكر بذكاء وتتابع تقدمك بصورة أوضح.</p>
+    <div class="medo-pro-heading">
+        <span class="pro-kicker">خطوتك التالية مع Medo</span>
+        <h2>💎 Medo Pro</h2>
+        <p>خطة شهرية اختيارية بمميزات إضافية تساعدك تذاكر بذكاء وتتابع تقدمك بصورة أوضح.</p>
         <span class="pro-status">اشتراك شهري — 49 جنيه لمدة 30 يومًا</span>
-        </div>
-        <div class="pro-plans">
-            <article class="pro-card">
-                <span class="plan-label">الخطة المجانية</span>
-                <h3>Medo Free</h3>
-                <p class="plan-price">مجانية دائمًا</p>
-                <ul>
-                    <li>✓ تنظيم المهام والأولويات</li>
-                    <li>✓ أدوات الدراسة والجدول الأسبوعي</li>
-                    <li>✓ مؤقت التركيز</li>
-                    <li>✓ متابعة الإنجاز الأساسية</li>
-                </ul>
-                <a class="pro-button pro-button-light" href="#todo-area">استخدم أدوات Medo</a>
-            </article>
-            <article class="pro-card pro-card-featured">
-                <span class="plan-label">الخطة الشهرية المقترحة</span>
-                <h3>Medo Pro ✨</h3>
-            <p class="plan-price">49 جنيه <small>/ شهريًا</small></p>
-                <ul>
-                    <li>◷ تقارير تقدم دراسي متقدمة</li>
-                    <li>◷ تخطيط مذاكرة ذكي</li>
-                    <li>◷ مساعد دراسي بقدرات أوسع</li>
-                    <li>◷ تصدير الخطط والتقارير PDF</li>
-                </ul>
-        <a class="pro-button" href="#pro-payment-box">اشترك الآن 💎</a>
-            </article>
-        </div>
-        <div class="pro-account-status" id="proAccountStatus" aria-live="polite">
-            <strong>حالة عضويتك: جاري التحقق...</strong>
-            <p>سجّل الدخول لعرض حالة عضويتك.</p>
-        </div>
-    <div class="pro-payment-box" id="pro-payment-box"></div>
-    <h3>💎 اشترك في Medo Pro</h3>
-
-<p>اشترك في Medo Pro مقابل 49 جنيه لمدة 30 يومًا، واستمتع بمميزات العضوية المتاحة.</p>
-
-    <p>حوّل المبلغ من خلال تطبيق InstaPay إلى عنوان الدفع التالي:</p>
-
-    <div class="instapay-address" dir="ltr">
-        <strong id="instaPayAddress">mohamedkarkar21@instapay</strong>
-        <button type="button" onclick="copyInstaPay()">نسخ العنوان 📋</button>
     </div>
 
-    <p>بعد التحويل، اكتب رقم العملية لإرسال طلب الاشتراك.</p>
+    <div class="pro-plans">
+        <article class="pro-card">
+            <span class="plan-label">الخطة المجانية</span>
+            <h3>Medo Free</h3>
+            <p class="plan-price">مجانية دائمًا</p>
+            <ul>
+                <li>✓ تنظيم المهام والأولويات</li>
+                <li>✓ أدوات الدراسة والجدول الأسبوعي</li>
+                <li>✓ مؤقت التركيز</li>
+                <li>✓ متابعة الإنجاز الأساسية</li>
+            </ul>
+            <a class="pro-button pro-button-light" href="#todo-area">استخدم أدوات Medo</a>
+        </article>
 
-    <form id="proPaymentForm">
-        <label for="proTransaction">رقم عملية التحويل:</label>
-        <input
-            type="text"
-            id="proTransaction"
-            placeholder="اكتب رقم العملية"
-            required
-        >
-        <button type="submit" class="pro-button">
-            إرسال طلب الاشتراك
-        </button>
-    </form>
+        <article class="pro-card pro-card-featured">
+            <span class="plan-label">الخطة الشهرية المقترحة</span>
+            <h3>Medo Pro ✨</h3>
+            <p class="plan-price">49 جنيه <small>/ شهريًا</small></p>
+            <ul>
+                <li>◷ تقارير تقدم دراسي متقدمة</li>
+                <li>◷ تخطيط مذاكرة ذكي</li>
+                <li>◷ مساعد دراسي بقدرات أوسع</li>
+                <li>◷ تصدير الخطط والتقارير PDF</li>
+            </ul>
+            <a class="pro-button" href="#pro-payment-box">اشترك الآن 💎</a>
+        </article>
+    </div>
 
-    <p id="proPaymentMessage" aria-live="polite"></p>
-</div>
+    <div class="pro-account-status" id="proAccountStatus" aria-live="polite">
+        <strong>حالة عضويتك: جاري التحقق...</strong>
+        <p>سجّل الدخول لعرض حالة عضويتك.</p>
+    </div>
 
-<script>
-function copyInstaPay() {
-    const address = "mohamedkarkar21@instapay";
-    navigator.clipboard.writeText(address)
-        .then(() => alert("تم نسخ عنوان إنستاباي ❤️"))
-        .catch(() => alert("انسخ العنوان يدويًا: " + address));
-}
-</script>
-</div>
-        <p class="pro-note">
-السعر 49 جنيه شهريًا لمدة 30 يومًا. بعض المميزات الإضافية قيد التطوير، ويتم تفعيل العضوية يدويًا بعد التأكد من وصول التحويل.
-</p>
-    </section>
+    <div class="pro-payment-box" id="pro-payment-box">
+        <h3>💎 اشترك في Medo Pro</h3>
+
+        <p>اشترك مقابل 49 جنيه لمدة 30 يومًا، واستمتع بمميزات العضوية المتاحة.</p>
+
+        <p>حوّل المبلغ من خلال تطبيق InstaPay إلى عنوان الدفع التالي:</p>
+
+        <div class="instapay-address" dir="ltr">
+            <strong id="instaPayAddress">mohamedkarkar21@instapay</strong>
+            <button type="button" onclick="copyInstaPay()">نسخ العنوان 📋</button>
+        </div>
+
+        <p>بعد التحويل، اكتب رقم العملية لإرسال طلب الاشتراك.</p>
+
+        <form id="proPaymentForm">
+            <label for="proTransaction">رقم عملية التحويل:</label>
+            <input
+                type="text"
+                id="proTransaction"
+                placeholder="اكتب رقم العملية"
+                required
+            >
+            <button type="submit" class="pro-button">
+                إرسال طلب الاشتراك
+            </button>
+        </form>
+
+        <p id="proPaymentMessage" aria-live="polite"></p>
+    </div>
+
+    <script>
+    function copyInstaPay() {
+        const address = "mohamedkarkar21@instapay";
+        navigator.clipboard.writeText(address)
+            .then(() => alert("تم نسخ عنوان إنستاباي ❤️"))
+            .catch(() => alert("انسخ العنوان يدويًا: " + address));
+    }
+    </script>
+
+    <p class="pro-note">
+        السعر 49 جنيه شهريًا لمدة 30 يومًا. بعض المميزات الإضافية قيد التطوير، ويتم تفعيل العضوية يدويًا بعد التأكد من وصول التحويل.
+    </p>
+</section>
 
     <!-- العودة للأعلى -->
     <button
@@ -618,6 +622,6 @@ function copyInstaPay() {
     <script type="module" src="weekly-schedule.js"></script>
     <script type="module" src="features.js"></script>
     <script type="module" src="pro-membership.js"></script>
-
+<div id="notificationBox"></div>
 </body>
 </html>
