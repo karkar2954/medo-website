@@ -828,3 +828,16 @@ function showNotification(message) {
 
 window.showNotification = showNotification;
 window.toggleTask = toggleTask;
+// تشغيل Medo كتطبيق PWA
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker
+            .register("./service-worker.js")
+            .then(() => {
+                console.log("Medo PWA is ready!");
+            })
+            .catch((error) => {
+                console.error("PWA registration failed:", error);
+            });
+    });
+}

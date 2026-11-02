@@ -1,0 +1,23 @@
+{
+  "name": "Medo - نظم يومك",
+  "short_name": "Medo",
+  "description": "منصة Medo لتنظيم المهام والمذاكرة وتحقيق الأهداف",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#6d28d9",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

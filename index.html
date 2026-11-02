@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6d28d9">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+<link rel="manifest" href="./manifest.json">
     <title>Medo | منصتك لتنظيم الدراسة والحياة</title>
 
     <link rel="stylesheet" href="style.css">
@@ -93,12 +97,11 @@
     <button id="logoutBtn" onclick="logout()" style="display:none;">
         تسجيل الخروج 🚪
     </button>
-
-    <button id="deleteAccountBtn"
-        onclick="deleteAccount()"
-       style="display:none; background:red; color:white;"></button>
-        حذف الحساب 🗑️
-    </button>
+<button id="deleteAccountBtn"
+    onclick="deleteAccount()"
+    style="display:none; background:red; color:white;">
+    حذف الحساب 🗑️
+</button>
 <section class="dashboard" id="dashboard">
     <h2>📊 لوحة التحكم</h2>
     <p>أهلاً بيك في لوحة تحكم Medo ❤️</p>
